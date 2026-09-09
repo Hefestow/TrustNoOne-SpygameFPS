@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://qk8g21o5yt5p"]
+
+[ext_resource type="PackedScene" uid="uid://n6gk5rqd8eyp" path="res://scenes/skeleton_character.tscn" id="1_abqhh"]
+[ext_resource type="Script" uid="uid://blk35ujig5ep6" path="res://scripts/npc_body.gd" id="1_rv78h"]
+[ext_resource type="PackedScene" uid="uid://hioimpybwioh" path="res://scenes/interaction_area.tscn" id="2_rv78h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
+size = Vector3(0.7055664, 1.2617188, 1)
+
+[node name="NPC" type="Node3D" unique_id=1197784429]
+script = ExtResource("1_rv78h")
+look_modifier_path = NodePath("Skeleton Character/Armature/Skeleton3D/LookAtModifier3D")
+intro_mesh_path = NodePath("")
+
+[node name="SpeechAnchor" type="Marker3D" parent="." unique_id=1854548184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06346029, 0.83736116, 0)
+
+[node name="Chatter" type="AudioStreamPlayer3D" parent="." unique_id=1705287707]
+
+[node name="InteractionArea" parent="." unique_id=1140599872 instance=ExtResource("2_rv78h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06689876, 0.81388223, -0.04064165)
+dialogue_lines = Array[String](["They say this job kills you, but Im doing great!", "Hey uhh could you get me a cup of coffee? I really can't get up right now. "])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=345268508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23493528, -0.13085938, 0)
+shape = SubResource("BoxShape3D_rfqkq")
+
+[node name="Skeleton Character" parent="." unique_id=1165778372 instance=ExtResource("1_abqhh")]
+
+[node name="Cube_015" parent="Skeleton Character/Armature/Skeleton3D/Bone_001" parent_id_path=PackedInt32Array(1165778372, 1018885442) index="0" unique_id=1103605301]
+transform = Transform3D(0.11582772, 0.00478509, -0.00025727088, 0.009927746, -0.055818167, 0.0060139676, 9.3027746e-05, -0.001048045, -0.3214745, 0.11548574, -4.245145, -0.037439052)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Skeleton Character/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1165778372, 1605169691) index="1" unique_id=1252429951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36249554, 4.758359, 0)
+bone_name = "Bone.001"
+bone = 0
+forward_axis = 0
+duration = 0.2
+
+[node name="Skeleton3D" parent="Skeleton Character/Armature_001" parent_id_path=PackedInt32Array(1165778372, 739187096) index="1" unique_id=1566341011]
+bones/0/scale = Vector3(0.9986759, 0.9986759, 0.9986759)
+bones/1/rotation = Quaternion(-0.41530088, -0.45217723, -0.52921003, 0.5856601)
+bones/3/rotation = Quaternion(-0.5261856, -0.39122078, -0.59008217, 0.47103932)
+bones/5/rotation = Quaternion(-0.47713387, -0.37158087, -0.5548962, 0.5712803)
+bones/7/rotation = Quaternion(-0.5886807, -0.24456605, -0.57926947, 0.50802505)
+
+[node name="Bone" parent="Skeleton Character/Armature_001/Skeleton3D" index="0" unique_id=1636590404]
+transform = Transform3D(0.9986759, 0, 0, 0, 0.9986759, 0, 0, 0, 0.9986759, 0.10981023, 1.5513253, -0.06993407)
+
+[editable path="Skeleton Character"]

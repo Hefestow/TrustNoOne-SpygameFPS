@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cqlv8c7l84lnm"]
+
+[ext_resource type="Script" uid="uid://d2xntq55niksc" path="res://scripts/hostile_area.gd" id="1_labpj"]
+
+[node name="HostileArea" type="Area3D" unique_id=44056495]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("1_labpj")

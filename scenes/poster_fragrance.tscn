@@ -1,0 +1,53 @@
+[gd_scene format=4 uid="uid://c3pbjgq3eojox"]
+
+[ext_resource type="PackedScene" uid="uid://b87ae0tec6q5n" path="res://assets/art/Poster_Fragrance.glb" id="1_gvc2c"]
+[ext_resource type="Texture2D" uid="uid://c83nb037hyfyn" path="res://assets/art/poster_man2_pixel.png" id="2_a45lx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5xih"]
+resource_name = "poster"
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("2_a45lx")
+metallic = 1.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("2_a45lx")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ulnoo"]
+_surfaces = [{
+"aabb": AABB(-0.87, -0.87, -0.87, 1.2447488, 1.74, 0.08074403),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAQAEAAIABQAAAAIABQACAAQAAQAGAAQAAwAGAAEABwAFAAQAAAAIAAMAAAAFAAgAAwAIAAYABQAHAAkABQAJAAgABwAEAAoABgAKAAQACQAHAAoACwAGAAgACwAIAAkABgALAAoACQAKAAsA"),
+"name": "poster",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("AAAAAAAAAAD/////AAAAAAAA//8AAAAA//8AAAAAAAAAAP//PzQAAAAAAAA/NAAA/////z80AAA3DXQJ//8AAP//AAA/NAAAx/J0Cf//AAA3DYr2//8AAMfyivb//wAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_of7vd"]
+resource_name = "Poster_Fragrance_Cube"
+_surfaces = [{
+"aabb": AABB(-0.87, -0.87, -0.87, 1.2447488, 1.74, 0.08074403),
+"attribute_data": PackedByteArray("bYDihnOGUo9tgFKPc4bihiH8eo3//4fyIfyn7v//momrhcS0e4CPjauFUZR7gIW77oWI4dx/ps/uhUrM3H8s3r+ANKK9heiwv4Crs72F96QK/Gmw2/uFogr8haLb+2mwsP81nqz7abCw/6CxrPv+nL/6//+GhzuBv/o7gYaH//8K/IWi2/uhlAr8oZTb+4WitIPz5+SCCJK0gwiS5ILz5w=="),
+"format": 34896613399,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUA"),
+"material": SubResource("StandardMaterial3D_v5xih"),
+"name": "poster",
+"primitive": 3,
+"uv_scale": Vector4(1.9856281, 1.9809188, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("AAAAAAAA////////AAD//wAA//8AAP////8AAAAA//83DXQJ/////wAA//8/NP//Nw2K9v////8AAAAAPzT//8fyivb//5PW//8AAD80ItPH8nQJ//+N0f////8/NOvVAAAAAD80AKbH8nQJ//896P//AAA/NG/pNw10Cf//aaT/////PzQApjcNivb//z3oAAD//z80b+nH8or2//9ppAAAAAAAAFTV//8AAD80VNX//wAAAABU1QAAAAA/NFTVAAAAAD80Gy4AAP//AAAbLgAA//8/NBsuAAAAAAAAGy7H8nQJ//8AgDcNivb//wCAx/KK9v//AIA3DXQJ//8AgP////8AAFTVAAD//z80VNUAAP//AABU1f////8/NFTV//8AAAAA/7//////PzT/v/////8AAP+///8AAD80/7////9/////f////3////9/glr/f4Ja/3+CWv9/glr/f6oTuh81n45q9p63aQAUoR+3PDZuzHTJXVl1oF1GN85vR8PIkTKLNaKlil6iuMgwkFRVVFVUVVRVVFVUVVRVVFWHVw6vh1cOr4dXDq+HVw6v/3////9/////f////3///1TVqipU1aoqVNWqKlTVqir/fwAA/38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ulnoo")
+
+[node name="Poster_Fragrance" unique_id=716292400 instance=ExtResource("1_gvc2c")]
+
+[node name="Cube" parent="." index="0" unique_id=751254582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22935736, 1.9911134, 0.8970201)
+mesh = SubResource("ArrayMesh_of7vd")

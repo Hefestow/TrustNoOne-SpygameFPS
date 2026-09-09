@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cuubruwa2f342"]
+
+[ext_resource type="PackedScene" uid="uid://l2hijytlxtjr" path="res://assets/art/hostile_trooper.glb" id="1_ybfmg"]
+
+[node name="hostile_trooper" unique_id=1109400783 instance=ExtResource("1_ybfmg")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(2002650843) index="0" unique_id=466377772]
+bones/1/scale = Vector3(1, 1.0000002, 1)
+bones/2/scale = Vector3(1.0000001, 1, 0.9999999)
+bones/3/rotation = Quaternion(-0.06447632, -6.752737e-09, 3.526191e-09, 0.99791926)
+bones/9/rotation = Quaternion(-0.2942015, 0.6237905, -0.55069166, 0.47018048)
+bones/9/scale = Vector3(1.0072494, 1.0072494, 1.0072497)
+bones/10/rotation = Quaternion(0.022650551, 0.12360561, -0.16047376, 0.97900814)
+bones/10/scale = Vector3(1.0000001, 1.0000001, 0.9999999)
+bones/11/scale = Vector3(1.0062314, 1.0062314, 1.0062314)
+bones/12/rotation = Quaternion(0.29420152, 0.62379044, -0.5506916, -0.4701805)
+bones/15/rotation = Quaternion(-0.039290454, -7.679344e-08, -6.96119e-10, 0.9992278)
+bones/16/rotation = Quaternion(-0.036295213, -1.5988137e-07, 8.19889e-09, 0.99934113)
+bones/17/position = Vector3(0.21726538, 0.15700418, 0.057513814)
+bones/17/rotation = Quaternion(0.9865149, 1.6194019e-08, 5.9326485e-08, 0.16367148)
+bones/19/rotation = Quaternion(-0.6517722, 0.03588639, 0.19085635, 0.7331296)
+bones/21/rotation = Quaternion(0.15929373, 0.9833794, -0.05498397, -0.06758164)
+bones/22/position = Vector3(-0.21726537, 0.1570042, 0.05751382)
+bones/22/rotation = Quaternion(0.9865149, 1.5581913e-08, 5.5637074e-08, 0.16367148)
+bones/23/rotation = Quaternion(0.07766281, -0.004050573, 0.041035492, 0.9961266)
+bones/24/rotation = Quaternion(-0.6517722, -0.03588649, -0.19085632, 0.7331297)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=2016587360]
+autoplay = &"idle_anim"

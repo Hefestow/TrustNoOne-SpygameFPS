@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmdhurjrd2510"
+path="res://.godot/imported/spotlight SFX.mp3-6ec5b9f3c8e4521880d678ab146b47e9.mp3str"
+
+[deps]
+
+source_file="res://sounds/spotlight SFX.mp3"
+dest_files=["res://.godot/imported/spotlight SFX.mp3-6ec5b9f3c8e4521880d678ab146b47e9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bn2n64uttri54"]
+
+[ext_resource type="FontFile" uid="uid://b6ugsp26dmv71" path="res://assets/UNISPACE BD.TTF" id="1_a8ruc"]
+[ext_resource type="Script" uid="uid://byrs4o27k2ik3" path="res://scripts/speech_bubble.gd" id="1_x4eeu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rfqkq"]
+font = ExtResource("1_a8ruc")
+font_size = 28
+
+[node name="SpeechBubble" type="Control" unique_id=467368944]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x4eeu")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=876092260]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=912656568]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer" unique_id=2141534381]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_rfqkq")

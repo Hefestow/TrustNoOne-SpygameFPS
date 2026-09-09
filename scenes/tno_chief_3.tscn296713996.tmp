@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://c3jihvp40i3vc"]
+
+[ext_resource type="PackedScene" uid="uid://cj511n0u3ug2s" path="res://assets/art/TNO_Chief3.glb" id="1_a4u0i"]
+[ext_resource type="Script" uid="uid://blk35ujig5ep6" path="res://scripts/tno_chief_3.gd" id="2_a4u0i"]
+[ext_resource type="Material" uid="uid://03hyfdvk75ox" path="res://assets/materials/ShadowMaterial.tres" id="2_g6fqa"]
+[ext_resource type="AudioStream" uid="uid://dqxaqu4o4jutd" path="res://sounds/RoboChief_chatter1.wav" id="5_a6ql7"]
+[ext_resource type="AudioStream" uid="uid://dhg1k2enpl2yb" path="res://sounds/RoboChief_chatter2.wav" id="6_1wu5j"]
+[ext_resource type="AudioStream" uid="uid://bbeg6a5g4vwge" path="res://sounds/RoboChief_chatter3.wav" id="7_54yp3"]
+[ext_resource type="AudioStream" uid="uid://d013kkum370ju" path="res://sounds/RoboChief_chatter4.wav" id="8_aw4fy"]
+[ext_resource type="AudioStream" uid="uid://cqdouhjfwcflu" path="res://sounds/RoboChief_chatter5.wav" id="9_mnwkc"]
+[ext_resource type="PackedScene" uid="uid://dwutw6c4bpx77" path="res://scenes/dialogue_box.tscn" id="10_1wu5j"]
+[ext_resource type="Script" uid="uid://dflv0jcsm3hvj" path="res://scripts/npc.gd" id="10_54yp3"]
+
+[sub_resource type="Animation" id="Animation_dcps1"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4u0i"]
+_data = {
+&"idle": SubResource("Animation_dcps1")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lkujl"]
+radius = 1.4296875
+height = 6.9143066
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rfqkq"]
+random_pitch = 1.0059091
+random_volume_offset_db = 0.68
+streams_count = 5
+stream_0/stream = ExtResource("5_a6ql7")
+stream_0/weight = 2.064
+stream_1/stream = ExtResource("6_1wu5j")
+stream_1/weight = 2.064
+stream_2/stream = ExtResource("7_54yp3")
+stream_2/weight = 2.064
+stream_3/stream = ExtResource("8_aw4fy")
+stream_4/stream = ExtResource("9_mnwkc")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3v2ag"]
+size = Vector3(5.4379883, 5.341919, 5.8490295)
+
+[node name="TNO_Chief3" unique_id=50193929 instance=ExtResource("1_a4u0i")]
+script = ExtResource("2_a4u0i")
+black_material = ExtResource("2_g6fqa")
+
+[node name="Sphere" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1868276392) index="0" unique_id=1575833727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4330883, 0.15106583, -0.20603561)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1868276392) index="1" unique_id=1386565974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36923528, 2.8003762, 0.088484704)
+target_node = NodePath("..")
+bone_name = "Bone.002"
+bone = 2
+duration = 0.2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.3962634
+primary_damp_threshold = 1.0
+secondary_limit_angle = 0.6981317
+secondary_damp_threshold = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=918078942]
+libraries/ = SubResource("AnimationLibrary_a4u0i")
+
+[node name="SpeechAnchor" type="Marker3D" parent="." index="2" unique_id=1349757197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47883, 5.510809, 0.3792194)
+
+[node name="Chief" type="StaticBody3D" parent="." index="3" unique_id=1739444224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1865124, 0.6740105)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chief" index="0" unique_id=2117197049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3907027, 1.4087092, -1.0288997)
+shape = SubResource("CapsuleShape3D_lkujl")
+
+[node name="ChiefChatter" type="AudioStreamPlayer3D" parent="." index="4" unique_id=611609982]
+stream = SubResource("AudioStreamRandomizer_rfqkq")
+volume_db = 3.409
+
+[node name="DialogueBox" parent="." index="5" unique_id=1559957436 instance=ExtResource("10_1wu5j")]
+
+[node name="InteractionArea" type="Area3D" parent="." index="6" unique_id=1732673357]
+collision_layer = 128
+script = ExtResource("10_54yp3")
+dialogue_lines = Array[String](["This is your last job before retirement, so stay sharp.", "Your target is the CEO of Tech-Took, infiltrate his HQ, find him and eliminate him.", "Here are your tools for the mission:\\nA tranq gun, a pipe and a piece of candy.", "Actually.. that candy looks kinda nice,\\nI'm gonna keep it.", "Godspeed, agent."])
+post_dialogue_line = "That'll be all agent."
+beckon_line = "Over here, agent."
+play_beckon = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" index="0" unique_id=1992760617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1527166, 4.6013794, 2.928874)
+shape = SubResource("BoxShape3D_3v2ag")

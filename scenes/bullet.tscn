@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://s0urjjximv0d"]
+
+[ext_resource type="Script" uid="uid://ukyvudcsst80" path="res://scripts/bullet.gd" id="1_mkf8s"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3v2ag"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jej6c"]
+radius = 0.8555876
+
+[node name="Bullet" type="Area3D" unique_id=838727493]
+script = ExtResource("1_mkf8s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1992412036]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, 0, 0)
+mesh = SubResource("SphereMesh_3v2ag")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2141231928]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+shape = SubResource("SphereShape3D_jej6c")

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dwid06dec3tqx"]
+
+[ext_resource type="PackedScene" uid="uid://b7lyaauabtovl" path="res://assets/art/TNO_Chief.glb" id="1_vxy2k"]
+[ext_resource type="Script" uid="uid://bvi50nlah2r5q" path="res://scripts/chief_npc.gd" id="2_uq7x4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uq7x4"]
+albedo_color = Color(0.39600003, 0.72, 0.47160006, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rfqkq"]
+radius = 1.3666992
+height = 6.9506836
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hnivp"]
+
+[node name="TNO_Chief" unique_id=2089505615 instance=ExtResource("1_vxy2k")]
+transform = Transform3D(0.485, 0, 0, 0, 0.485, 0, 0, 0, 0.485, 0, 0, -1.1418636)
+
+[node name="Chief" parent="." index="0" unique_id=372161791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.020232677, 0.015937805)
+
+[node name="cork" parent="." index="1" unique_id=422951330]
+visible = false
+
+[node name="Cube_003" parent="." index="2" unique_id=216091088]
+transform = Transform3D(-0.3957857, 0, 0, 0, -0.3957857, 0, 0, 0, -0.42367783, 1.0833901, 5.3815446, -0.084527016)
+visible = false
+
+[node name="legs" parent="." index="9" unique_id=1612339610]
+visible = false
+
+[node name="Nightstand" parent="." index="10" unique_id=548875318]
+visible = false
+
+[node name="Sphere" parent="." index="11" unique_id=1070327269]
+material_override = SubResource("StandardMaterial3D_uq7x4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="12" unique_id=1075908134]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1193513653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.74233717, 3.3179798, 2.079551)
+shape = SubResource("CapsuleShape3D_rfqkq")
+
+[node name="Chief2" type="StaticBody3D" parent="." index="13" unique_id=1665956059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.59349906, 1.1865124, 2.5426936)
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("2_uq7x4")
+dialogue_lines = Array[String](["Wassup Danger. ", "I aint no stranger.", "Im Hermoyany Greinger! "])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chief2" index="0" unique_id=1348040799]
+shape = SubResource("CapsuleShape3D_hnivp")

@@ -1,0 +1,399 @@
+[gd_scene format=3 uid="uid://dolivp3lsc40t"]
+
+[ext_resource type="Script" uid="uid://5vxan14i12hy" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="AudioStream" uid="uid://dbwk3l086h50u" path="res://sounds/footstep1.wav" id="2_tuyoq"]
+[ext_resource type="AudioStream" uid="uid://dxqkc6u4lix2d" path="res://sounds/footstep2.wav" id="3_fjrip"]
+[ext_resource type="AudioStream" uid="uid://cvugmhepnjs2x" path="res://sounds/footstep3.wav" id="4_smehm"]
+[ext_resource type="AudioStream" uid="uid://bq74cha0ekhjw" path="res://sounds/footstep4.wav" id="5_ur7pv"]
+[ext_resource type="AudioStream" uid="uid://bvkh8l3yxljwv" path="res://sounds/footstep5.wav" id="6_y4r1p"]
+[ext_resource type="Script" uid="uid://bbd4dkie63o6p" path="res://scripts/weapon_manager.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://de63drdvquyut" path="res://scripts/pipe_weapon.gd" id="8_smehm"]
+[ext_resource type="PackedScene" uid="uid://cbrasqu2cbmsa" path="res://scenes/pipe.tscn" id="9_3v2ag"]
+[ext_resource type="Script" uid="uid://cads0rhofhueq" path="res://scenes/gun_weapon.gd" id="9_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://6d0bebakbwb5" path="res://scenes/hitbox.tscn" id="10_qfm1y"]
+[ext_resource type="PackedScene" uid="uid://s0urjjximv0d" path="res://scenes/bullet.tscn" id="10_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://c1iove2m6u2ar" path="res://scenes/tranq_gun.tscn" id="11_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://6ygecusfr45u" path="res://sounds/gun-reloadSFX.wav" id="13_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://cu0c7gnl53n4t" path="res://assets/art/handicon_hover_frames_pixel.png" id="13_jej6c"]
+[ext_resource type="PackedScene" uid="uid://dj4lcl80hqs33" path="res://scenes/health_component.tscn" id="15_oprun"]
+[ext_resource type="PackedScene" uid="uid://85pijyvd8kkg" path="res://scenes/hurtbox.tscn" id="17_fulsm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iavml"]
+size = Vector3(0.057617188, 0.07006836, 0.5569458)
+
+[sub_resource type="Animation" id="Animation_3v2ag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwingPivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.43957865, -0.67045975, -0.3685052)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwingPivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.1713358, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwingPivot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jej6c"]
+resource_name = "swing"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwingPivot:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666, 0.2331, 0.49950004),
+"transitions": PackedFloat32Array(1, 1, 0.3077868, 1),
+"update": 0,
+"values": [Vector3(0.43957865, -0.67045975, -0.3685052), Vector3(0.315, -0.72, -0.409), Vector3(0.12, -0.545, -0.194), Vector3(0.43957865, -0.67045975, -0.3685052)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwingPivot:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666, 0.2331, 0.49950004),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.1713358, 0, 0), Vector3(1.6249015, 0.8185594, 6.2831855), Vector3(0.43458697, 1.298525, 6.25526), Vector3(1.1713358, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwingPivot:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.49950004),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwingPivot/Hitbox")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.10000001, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_active"
+}, {
+"args": [false],
+"method": &"set_active"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
+_data = {
+&"RESET": SubResource("Animation_3v2ag"),
+&"swing": SubResource("Animation_jej6c")
+}
+
+[sub_resource type="Animation" id="Animation_a8ls1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunReloadSFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qfm1y"]
+resource_name = "reload"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.2831855, 0.2565634, -0.50265485), Vector3(6.2831855, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.16, 1.215, 1.15), Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GunReloadSFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fulsm"]
+_data = {
+&"RESET": SubResource("Animation_a8ls1"),
+&"reload": SubResource("Animation_qfm1y")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rfqkq"]
+radius = 0.3930664
+height = 1.6757813
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_iavml"]
+radius = 0.2602539
+height = 1.1689453
+
+[sub_resource type="Animation" id="Animation_f1ej7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrabSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4.7187495, 4.5625)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrabSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrabSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_oprun"]
+resource_name = "grab"
+length = 0.7
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrabSprite:scale")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18, 0.31502584, 0.48, 0.61),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4.7187495, 4.5625), Vector2(5.287, 4.453), Vector2(4.7187495, 4.5625), Vector2(5.287, 4.453), Vector2(4.7187495, 4.5625)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrabSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1665, 0.2997, 0.4662, 0.5994),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 1, 0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrabSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.69, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a8ls1"]
+_data = {
+&"RESET": SubResource("Animation_f1ej7"),
+&"grab": SubResource("Animation_oprun")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
+size = Vector3(0.3317871, 1, 0.3449707)
+
+[node name="Player" type="CharacterBody3D" unique_id=1355011314 groups=["player"]]
+collision_layer = 129
+script = ExtResource("1_3vyb7")
+walk_speed = 4.0
+sprint_speed = 6.5
+footstep_sounds = Array[AudioStream]([ExtResource("2_tuyoq"), ExtResource("3_fjrip"), ExtResource("4_smehm"), ExtResource("5_ur7pv"), ExtResource("6_y4r1p")])
+
+[node name="Head" type="Node3D" parent="." unique_id=718468866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=509796320]
+
+[node name="InteractRay" type="RayCast3D" parent="Head/Camera3D" unique_id=1989480938]
+visible = false
+collision_mask = 128
+
+[node name="WeaponHolder" type="Node3D" parent="Head/Camera3D" unique_id=63873241]
+script = ExtResource("7_fjrip")
+
+[node name="Pipe" type="Node3D" parent="Head/Camera3D/WeaponHolder" unique_id=771841593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15317893, 0, -0.15502739)
+script = ExtResource("8_smehm")
+
+[node name="SwingPivot" type="Node3D" parent="Head/Camera3D/WeaponHolder/Pipe" unique_id=853986568]
+transform = Transform3D(1, 0, 0, 0, 0.38892138, -0.92127097, 0, 0.92127097, 0.38892138, 0.43957865, -0.67045975, -0.3685052)
+
+[node name="PipeMesh" parent="Head/Camera3D/WeaponHolder/Pipe/SwingPivot" unique_id=442054180 instance=ExtResource("9_3v2ag")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, -0.29280734)
+
+[node name="Hitbox" parent="Head/Camera3D/WeaponHolder/Pipe/SwingPivot" unique_id=1220558480 instance=ExtResource("10_qfm1y")]
+transform = Transform3D(1, 0, 0, 0, 0.38892138, 0.92127097, 0, -0.92127097, 0.38892138, -0.5927576, 0.35415018, 0.5072089)
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/WeaponHolder/Pipe/SwingPivot/Hitbox" unique_id=121466391]
+transform = Transform3D(1, 0, 0, 0, 0.38892075, -0.9212694, 0, 0.9212694, 0.38892075, 0.5927576, 0.62794423, -0.6495061)
+shape = SubResource("BoxShape3D_iavml")
+
+[node name="PipeAnimation" type="AnimationPlayer" parent="Head/Camera3D/WeaponHolder/Pipe" unique_id=46552506]
+libraries/ = SubResource("AnimationLibrary_f1ej7")
+
+[node name="Gun" type="Node3D" parent="Head/Camera3D/WeaponHolder" unique_id=2129951646]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39758623, -0.29936296, -0.61945796)
+script = ExtResource("9_ur7pv")
+bullet_scene = ExtResource("10_y4r1p")
+ammo = 222
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/WeaponHolder/Gun" unique_id=1223100983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0075643063, 0.10563409, -0.20314825)
+
+[node name="TranqGun" parent="Head/Camera3D/WeaponHolder/Gun" unique_id=1270621690 instance=ExtResource("11_d2wvv")]
+transform = Transform3D(0.2, 0, 3.4969112e-08, 0, 0.2, 0, -3.4969112e-08, 0, 0.2, 0, 0, 0)
+
+[node name="GunAnimation" type="AnimationPlayer" parent="Head/Camera3D/WeaponHolder/Gun" unique_id=848242361]
+libraries/ = SubResource("AnimationLibrary_fulsm")
+
+[node name="GunReloadSFX" type="AudioStreamPlayer3D" parent="Head/Camera3D/WeaponHolder/Gun" unique_id=96007235]
+stream = ExtResource("13_f1ej7")
+volume_db = -31.736
+pitch_scale = 0.96
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=317462918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8378906, 0)
+shape = SubResource("CapsuleShape3D_rfqkq")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=861503509]
+
+[node name="PlayerModel" type="MeshInstance3D" parent="." unique_id=1186194098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6680598, 0)
+mesh = SubResource("CapsuleMesh_iavml")
+
+[node name="GrabSprite" type="Sprite2D" parent="." unique_id=1014484174]
+position = Vector2(267, 430)
+scale = Vector2(4.7187495, 4.5625)
+texture = ExtResource("13_jej6c")
+flip_h = true
+hframes = 2
+frame = 1
+
+[node name="GrabAnimation" type="AnimationPlayer" parent="." unique_id=629405228]
+libraries/ = SubResource("AnimationLibrary_a8ls1")
+speed_scale = 0.724
+
+[node name="HealthComponent" parent="." unique_id=1252353592 instance=ExtResource("15_oprun")]
+
+[node name="Hurtbox" parent="." unique_id=741790417 instance=ExtResource("17_fulsm")]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=278841453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74773806, -0.04360354)
+shape = SubResource("BoxShape3D_rfqkq")

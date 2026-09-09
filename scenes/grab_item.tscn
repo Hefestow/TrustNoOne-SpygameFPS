@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dimglv8ql7uvc"]
+
+[ext_resource type="Script" uid="uid://d38ixsql374pm" path="res://scripts/grab_item.gd" id="1_6q2k3"]
+
+[node name="GrabItem" type="Area3D" unique_id=218673182]
+script = ExtResource("1_6q2k3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=87095853]

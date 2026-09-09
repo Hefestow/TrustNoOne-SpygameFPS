@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://hioimpybwioh"]
+
+[ext_resource type="Script" uid="uid://dflv0jcsm3hvj" path="res://scripts/npc.gd" id="1_40t11"]
+
+[node name="InteractionArea" type="Area3D" unique_id=1140599872]
+collision_layer = 128
+script = ExtResource("1_40t11")
+npc_name = "Skeleton"
+dialogue_lines = Array[String](["They say this job kills you, but Im doing great!", "Hey uhh could you get me a cup of coffee? I can't really get up right now. "])
+post_dialogue_line = "I'd looove a cup of coffee right now. "
+voice_player_path = NodePath("../Chatter")
+face_anchor_path = NodePath("../SpeechAnchor")

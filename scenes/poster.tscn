@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bn8d0mwdpi1wu"]
+
+[ext_resource type="PackedScene" uid="uid://dm5028s7i3i6h" path="res://assets/art/Poster.glb" id="1_00w0t"]
+[ext_resource type="Texture2D" uid="uid://7pvr2v4uk3cc" path="res://assets/art/Poster_poster.png" id="2_wf0j2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ix71u"]
+albedo_texture = ExtResource("2_wf0j2")
+
+[node name="Poster" unique_id=287826549 instance=ExtResource("1_00w0t")]
+
+[node name="Cube" parent="." index="0" unique_id=882834336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_ix71u")
