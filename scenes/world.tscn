@@ -203,9 +203,10 @@ shadow_mesh = SubResource("ArrayMesh_kpybi")
 [sub_resource type="LabelSettings" id="LabelSettings_e3hyu"]
 font_size = 15
 outline_size = 8
-outline_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 0.57254905)
 
 [sub_resource type="LabelSettings" id="LabelSettings_q5onr"]
+font_size = 20
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
@@ -381,6 +382,19 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "aasdasdasd"
 label_settings = SubResource("LabelSettings_q5onr")
+
+[node name="HealthLabel" type="Label" parent="HUD" unique_id=1369835212]
+offset_right = 78.0
+offset_bottom = 46.0
+
+[node name="HurtFlash" type="ColorRect" parent="HUD" unique_id=1226542140]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0.476)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=457281634]
 transform = Transform3D(1, 0, 0, 0, -0.052614745, 0.9986149, 0, -0.9986149, -0.052614745, 0, 9.017779, 0)

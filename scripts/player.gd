@@ -45,6 +45,8 @@ var dialogue_locked: bool = false
 var conversation_target: Node3D = null
 var conversation_tween: Tween
 
+var is_dead: bool = false
+var health := get_node_or_null("HealthComponent")
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_crouching: bool = false
 var standing_height: float = 2.0
@@ -58,6 +60,8 @@ var last_prompt: String = ""
 var is_grabbing: bool = false
 
 func _ready() -> void:
+	if health:
+		health.died.connect(_on_died)
 	grab_sprite.visible = false
 	default_fov = camera.fov
 	player_model.visible = false
@@ -104,6 +108,8 @@ func play_grab(item: Node) -> void:
 	end_conversation()
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if is_dead:
+		return
 	if dialogue_locked:
 		if is_grabbing:
 			return
@@ -129,6 +135,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED
+		
+
 func _is_leave_event(event: InputEvent) -> bool:
 	if event.is_action_pressed("ui_cancel"):
 		return true
@@ -146,6 +154,8 @@ func _cancel_conversation() -> void:
 	end_conversation()
 	
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
 	if dialogue_locked:
 		_handle_gravity(delta)
 		velocity.x = lerp(velocity.x, 0.0, stop_lerp_speed * delta)
@@ -337,3 +347,21 @@ func player_say(text: String) -> void:
 	var hud := get_tree().get_first_node_in_group("hud")
 	if hud and hud.has_method("say"):
 		hud.say(text)
+
+func _on_died() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	dialogue_locked = true
+	velocity = Vector3.ZERO
+	if weapons:
+		weapons.set_process_unhandled_input(false)
+
+	var hud := get_tree().get_first_node_in_group("hud")
+	if hud and hud.has_method("play_exit_sequence"):
+		hud.play_exit_sequence("You died.")
+	else:
+		print("Player died")
+
+	await get_tree().create_timer(2.5).timeout
+	get_tree().reload_current_scene()

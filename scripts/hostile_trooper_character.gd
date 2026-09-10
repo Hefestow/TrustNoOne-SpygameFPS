@@ -15,12 +15,24 @@ enum State { PATROL, IDLE, CHASE, ATTACK }
 @export var look_modifier_path: NodePath
 @export var waypoints: Array[Node3D] = []
 @export var start_hostile: bool = false
+@export var hit_stun: float = 0.28
 
+
+@onready var hurt_sfx: AudioStreamPlayer3D = $TrooperHurtSFX
+@onready var health_label: Label3D = $HealthLabel
 @onready var anim: AnimationPlayer = $hostile_trooper/AnimationPlayer2
 @onready var talk_area: Area3D = $InteractionArea
 @onready var attack_hitbox: Area3D = $AttackHitbox
 @onready var look_at_mod: LookAtModifier3D = get_node_or_null(look_modifier_path)
 
+@export var flash_time: float = 0.10
+@export var flash_color: Color = Color(1.0, 0.152, 0.1, 0.548)
+
+var _flash_mat: StandardMaterial3D
+var _meshes: Array[MeshInstance3D] = []
+
+var is_dead: bool = false
+var stun_left: float = 0.0
 var state: State = State.PATROL
 var player: Node3D
 var player_head: Node3D
@@ -48,7 +60,28 @@ func _ready() -> void:
 		become_hostile()
 	else:
 		_play("idle_anim")
-
+		
+	var health := self.get_node_or_null("HealthComponent")
+	if health:
+		health.health_changed.connect(_on_trooper_health)
+		health.died.connect(_on_died)
+		_on_trooper_health(health.current, health.max_health)
+		
+	_meshes.clear()
+	for child in find_children("*", "MeshInstance3D", true, false):
+		_meshes.append(child)
+	_flash_mat = StandardMaterial3D.new()
+	_flash_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_flash_mat.albedo_color = flash_color
+	_flash_mat.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
+	_flash_mat.roughness = 1.0
+	
+	if health:
+		health.health_changed.connect(_on_trooper_health)
+		health.damaged.connect(_on_damaged)
+		health.died.connect(_on_died)
+		_on_trooper_health(health.current, health.max_health)
+		
 func become_hostile() -> void:
 	if state == State.CHASE or state == State.ATTACK:
 		return
@@ -56,12 +89,19 @@ func become_hostile() -> void:
 	if talk_area:
 		talk_area.monitoring = false
 		talk_area.set_deferred("monitorable", false)
+		if talk_area.has_method("set_can_talk"):
+			talk_area.set_can_talk(false)
 		if talk_area.has_method("cancel_conversation"):
 			talk_area.cancel_conversation()
+	if player and player.has_method("set_current_interactable"):
+		player.set_current_interactable(null)
 	_play("walk")
 	_blend_look(true)
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		velocity = Vector3.ZERO
+		return
 	if player == null or not is_instance_valid(player):
 		_find_player()
 		_set_look_target()
@@ -70,7 +110,14 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
-
+		
+	if stun_left > 0.0:
+		stun_left -= delta
+		velocity.x = lerp(velocity.x, 0.0, 4.0 * delta)
+		velocity.z = lerp(velocity.z, 0.0, 4.0 * delta)
+		move_and_slide()
+		return
+		
 	match state:
 		State.PATROL:
 			_patrol(delta)
@@ -135,24 +182,31 @@ func _chase() -> void:
 	velocity.z = dir.z * move_speed
 	_play("walk")
 
+
+
+func apply_knockback_stun(time: float = -1.0) -> void:
+	stun_left = hit_stun if time < 0.0 else time
+	if state == State.ATTACK:
+		return
+	state = State.CHASE
+	
+	
 func _start_attack() -> void:
+	if is_dead:
+		velocity = Vector3.ZERO
+		return
 	if not can_attack:
 		return
 	state = State.ATTACK
 	can_attack = false
-	already_hit.clear()
 	velocity.x = 0.0
 	velocity.z = 0.0
-	_face_player()
+	await _face_player_now()
 	_play("swing")
-	if attack_hitbox:
-		attack_hitbox.monitoring = true
 	if anim:
 		await anim.animation_finished
-	else:
-		await get_tree().create_timer(0.4).timeout
-	if attack_hitbox:
-		attack_hitbox.monitoring = false
+	if has_node("Hitbox"):
+		$Hitbox.set_active(false)
 	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
 	if state == State.ATTACK:
@@ -176,12 +230,26 @@ func _play(anim_name: String) -> void:
 		return
 	anim.play(anim_name)
 
+func _face_player_now() -> void:
+	if player == null:
+		return
+	var to := player.global_position - global_position
+	to.y = 0.0
+	if to.length() < 0.05:
+		return
+	var target_yaw := atan2(-to.x, -to.z) + deg_to_rad(facing_offset_deg)
+	var t := 0.0
+	while t < 0.15:
+		var delta := get_process_delta_time()
+		t += delta
+		rotation.y = lerp_angle(rotation.y, target_yaw, 0.25)
+		await get_tree().process_frame
+
 func _face_yaw(dir: Vector3) -> void:
 	if dir.length() < 0.05:
 		return
 	var target_yaw := atan2(-dir.x, -dir.z) + deg_to_rad(facing_offset_deg)
 	rotation.y = lerp_angle(rotation.y, target_yaw, 0.15)
-
 func _face_move_dir() -> void:
 	if state == State.ATTACK:
 		return
@@ -214,3 +282,41 @@ func _blend_look(on: bool) -> void:
 	look_tween = create_tween()
 	look_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	look_tween.tween_property(look_at_mod, "influence", 1.0 if on else 0.0, look_blend_time)
+
+func _on_trooper_health(current: float, max_health: float) -> void:
+	if health_label:
+		health_label.text = "HP %d / %d" % [int(current), int(max_health)]
+
+func _on_died() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	state = State.IDLE
+	velocity = Vector3.ZERO
+	stun_left = 0.0
+
+	if talk_area:
+		talk_area.monitoring = false
+	if has_node("Hitbox"):
+		$Hitbox.set_active(false)
+	if has_node("Hurtbox"):
+		$Hurtbox.monitoring = false
+		$Hurtbox.monitorable = false
+
+	_play("idle_anim")  # swap for "death" when you have the clip
+	get_tree().call_group("troopers", "become_hostile")
+
+	await get_tree().create_timer(0.8).timeout
+	queue_free()
+func _on_damaged(_amount: float, _from: Node) -> void:
+	_hit_flash()
+	if hurt_sfx:
+		hurt_sfx.play()
+
+func _hit_flash() -> void:
+	for mi in _meshes:
+		mi.material_overlay = _flash_mat
+	await get_tree().create_timer(flash_time).timeout
+	for mi in _meshes:
+		if is_instance_valid(mi):
+			mi.material_overlay = null

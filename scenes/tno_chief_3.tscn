@@ -114,6 +114,8 @@ post_dialogue_line = "That'll be all agent."
 beckon_line = "Over here, agent."
 play_beckon = true
 voice_sounds = Array[AudioStream]([ExtResource("5_a6ql7"), ExtResource("6_1wu5j"), ExtResource("7_54yp3"), ExtResource("8_aw4fy"), ExtResource("9_mnwkc")])
+voice_player_path = NodePath("../ChiefChatter")
+face_anchor_path = NodePath("../SpeechAnchor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" index="0" unique_id=1992760617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.350205, 4.6013794, 2.928874)

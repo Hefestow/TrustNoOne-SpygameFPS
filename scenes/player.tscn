@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://6ygecusfr45u" path="res://sounds/gun-reloadSFX.wav" id="13_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://cu0c7gnl53n4t" path="res://assets/art/handicon_hover_frames_pixel.png" id="13_jej6c"]
 [ext_resource type="PackedScene" uid="uid://dj4lcl80hqs33" path="res://scenes/health_component.tscn" id="15_oprun"]
+[ext_resource type="AudioStream" uid="uid://bise1uvvqmqsf" path="res://sounds/playerhurtSFX.wav" id="16_fulsm"]
 [ext_resource type="PackedScene" uid="uid://85pijyvd8kkg" path="res://scenes/hurtbox.tscn" id="17_fulsm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iavml"]
@@ -212,6 +213,10 @@ _data = {
 radius = 0.3930664
 height = 1.6757813
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rfqkq"]
+streams_count = 1
+stream_0/stream = ExtResource("16_fulsm")
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iavml"]
 radius = 0.2602539
 height = 1.1689453
@@ -254,10 +259,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrabSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(267, 430)]
+}
 
 [sub_resource type="Animation" id="Animation_oprun"]
 resource_name = "grab"
-length = 0.7
+length = 0.44
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -266,10 +283,10 @@ tracks/0/path = NodePath("GrabSprite:scale")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.18, 0.31502584, 0.48, 0.61),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.123500004, 0.24532585),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(4.7187495, 4.5625), Vector2(5.287, 4.453), Vector2(4.7187495, 4.5625), Vector2(5.287, 4.453), Vector2(4.7187495, 4.5625)]
+"values": [Vector2(4.7187495, 4.5625), Vector2(5.287, 4.453), Vector2(4.7187495, 4.5625)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -278,10 +295,10 @@ tracks/1/path = NodePath("GrabSprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1665, 0.2997, 0.4662, 0.5994),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.11, 0.23),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [1, 0, 1, 0, 1]
+"values": [1, 0, 1]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -290,10 +307,22 @@ tracks/2/path = NodePath("GrabSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.02, 0.69, 0.7),
+"times": PackedFloat32Array(0, 0.02, 0.42, 0.42999998),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [false, true, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrabSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.024980024, 0.09, 0.28, 0.35355228, 0.40351233),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(241.00003, 658), Vector2(260.00003, 615), Vector2(267, 430), Vector2(267, 430), Vector2(260.00003, 615), Vector2(241.00003, 658)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a8ls1"]
@@ -311,6 +340,8 @@ script = ExtResource("1_3vyb7")
 walk_speed = 4.0
 sprint_speed = 6.5
 footstep_sounds = Array[AudioStream]([ExtResource("2_tuyoq"), ExtResource("3_fjrip"), ExtResource("4_smehm"), ExtResource("5_ur7pv"), ExtResource("6_y4r1p")])
+
+[node name="HealthComponent" parent="." unique_id=1252353592 instance=ExtResource("15_oprun")]
 
 [node name="Head" type="Node3D" parent="." unique_id=718468866]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -338,6 +369,7 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, -0.29280734)
 transform = Transform3D(1, 0, 0, 0, 0.38892138, 0.92127097, 0, -0.92127097, 0.38892138, -0.5927576, 0.35415018, 0.5072089)
 collision_layer = 16
 collision_mask = 8
+knockback = 3.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/WeaponHolder/Pipe/SwingPivot/Hitbox" unique_id=121466391]
 transform = Transform3D(1, 0, 0, 0, 0.38892075, -0.9212694, 0, 0.9212694, 0.38892075, 0.5927576, 0.62794423, -0.6495061)
@@ -372,6 +404,9 @@ shape = SubResource("CapsuleShape3D_rfqkq")
 
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=861503509]
 
+[node name="HurtSFX" type="AudioStreamPlayer3D" parent="." unique_id=505359758]
+stream = SubResource("AudioStreamRandomizer_rfqkq")
+
 [node name="PlayerModel" type="MeshInstance3D" parent="." unique_id=1186194098]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6680598, 0)
 mesh = SubResource("CapsuleMesh_iavml")
@@ -388,11 +423,10 @@ frame = 1
 libraries/ = SubResource("AnimationLibrary_a8ls1")
 speed_scale = 0.724
 
-[node name="HealthComponent" parent="." unique_id=1252353592 instance=ExtResource("15_oprun")]
-
 [node name="Hurtbox" parent="." unique_id=741790417 instance=ExtResource("17_fulsm")]
 collision_layer = 8
 collision_mask = 16
+health_path = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=278841453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74773806, -0.04360354)

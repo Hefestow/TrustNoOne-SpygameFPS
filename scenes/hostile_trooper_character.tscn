@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://85pijyvd8kkg" path="res://scenes/hurtbox.tscn" id="4_388se"]
 [ext_resource type="PackedScene" uid="uid://6d0bebakbwb5" path="res://scenes/hitbox.tscn" id="5_uye42"]
 [ext_resource type="PackedScene" uid="uid://dj4lcl80hqs33" path="res://scenes/health_component.tscn" id="6_q8uud"]
+[ext_resource type="AudioStream" uid="uid://dqwbcv6bnva02" path="res://sounds/npc/npc_hurtsfx1.wav" id="7_32ocb"]
+[ext_resource type="AudioStream" uid="uid://dr3per6xnevp8" path="res://sounds/npc/npc_hurtsfx2.wav" id="8_30f4q"]
+[ext_resource type="AudioStream" uid="uid://bvpctc4yocsuj" path="res://sounds/npc/npc_hurtsfx3.wav" id="9_wrhfr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iavml"]
 radius = 0.15966797
@@ -527,9 +530,18 @@ radius = 0.14884007
 [sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
 size = Vector3(0.58688354, 0.40740967, 0.49804688)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rfqkq"]
+streams_count = 3
+stream_0/stream = ExtResource("7_32ocb")
+stream_1/stream = ExtResource("8_30f4q")
+stream_2/stream = ExtResource("9_wrhfr")
+
 [node name="NPCTrooper" type="CharacterBody3D" unique_id=1741088955]
 script = ExtResource("1_kwn8f")
+move_speed = 2.8
+attack_cooldown = 0.8
 patrol_pause = 5.0
+look_modifier_path = NodePath("hostile_trooper/rig/Skeleton3D/LookAtModifier3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=215980492]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6394043, 0)
@@ -549,6 +561,12 @@ bones/12/scale = Vector3(1, 1.0000001, 0.99999994)
 [node name="LookAtModifier3D" type="LookAtModifier3D" parent="hostile_trooper/rig/Skeleton3D" index="11" unique_id=166813791]
 bone_name = "ORG-spine.005"
 bone = 15
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.8938568
+primary_damp_threshold = 1.0
+secondary_limit_angle = 1.0531317
+secondary_damp_threshold = 1.0
 
 [node name="AnimationPlayer" parent="hostile_trooper" index="1" unique_id=192557079]
 autoplay = &""
@@ -573,6 +591,7 @@ shape = SubResource("BoxShape3D_kwn8f")
 [node name="Hurtbox" parent="." unique_id=741790417 instance=ExtResource("4_388se")]
 collision_layer = 8
 collision_mask = 16
+health_path = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=840601028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04023522, 0.5415344, 0)
@@ -586,8 +605,7 @@ shape = SubResource("SphereShape3D_rfqkq")
 collision_layer = 16
 collision_mask = 8
 monitoring = false
-damage = null
-knockback = null
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=2004552413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28179824, 0.8594507, -0.022140622)
@@ -595,5 +613,15 @@ shape = SubResource("BoxShape3D_rfqkq")
 debug_color = Color(0.97120744, 0, 0.45275337, 0.41960785)
 
 [node name="HealthComponent" parent="." unique_id=1252353592 instance=ExtResource("6_q8uud")]
+
+[node name="HealthLabel" type="Label3D" parent="." unique_id=1335957439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5653797, 0)
+billboard = 1
+
+[node name="TrooperHurtSFX" type="AudioStreamPlayer3D" parent="." unique_id=1406407711]
+stream = SubResource("AudioStreamRandomizer_rfqkq")
+
+[node name="SpeechAnchor" type="Marker3D" parent="." unique_id=1768802026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14643842, 1.2305062, 0)
 
 [editable path="hostile_trooper"]

@@ -30,6 +30,7 @@ signal line_started(kind: String)
 @onready var voice_player: AudioStreamPlayer3D = get_node_or_null(voice_player_path)
 @onready var face_anchor: Node3D = get_node_or_null(face_anchor_path)
 
+var can_talk: bool = true
 var player_in_range: Node = null
 var dialogue_index: int = 0
 var has_completed_dialogue: bool = false
@@ -91,13 +92,20 @@ func _process(delta: float) -> void:
 		type_timer += period_pause
 
 func get_prompt() -> String:
-	if is_dialogue_open:
+	if not can_talk or is_dialogue_open:
 		return ""
 	return "Talk to %s [E]" % npc_name
 
 func interact(_by: Node) -> void:
+	if not can_talk:
+		return
 	_handle_interact()
 
+func set_can_talk(value: bool) -> void:
+	can_talk = value
+	if not value and is_dialogue_open:
+		cancel_conversation()
+		
 func on_focus(_by: Node) -> void:
 	pass
 
