@@ -108,11 +108,13 @@ func set_can_talk(value: bool) -> void:
 			cancel_conversation()
 		collision_layer = 0
 		monitoring = false
-		set_deferred("monitorable", false)
-	else:
-		collision_layer = 8  # Interactables — match your project
-		monitoring = true
-		monitorable = true
+		monitorable = false
+		for child in get_children():
+			if child is CollisionShape3D:
+				child.disabled = true
+		if player_in_range and player_in_range.has_method("set_current_interactable"):
+			player_in_range.set_current_interactable(null)
+		player_in_range = null
 		
 func on_focus(_by: Node) -> void:
 	pass

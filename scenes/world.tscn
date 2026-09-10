@@ -456,7 +456,9 @@ post_dialogue_line = "I'd looove a cup of coffee! "
 voice_sounds = Array[AudioStream]([ExtResource("13_7t5mc"), ExtResource("14_lakw3"), ExtResource("15_pm21f"), ExtResource("16_2lf6f"), ExtResource("17_7iits")])
 
 [node name="Skeleton3D" parent="NPC/Skeleton Character/Armature" parent_id_path=PackedInt32Array(1197784429, 1165778372, 167501914) index="0" unique_id=1605169691]
+bones/0/rest = Transform3D(0.9963466, 0.08539822, 0.0008002364, -0.08539823, 0.99617124, 0.018704733, 0.0008001786, -0.018704735, 0.99982464, 0.24749398, 4.2394533, -0.042063892)
 bones/0/rotation = Quaternion(-0.009361302, 1.7925352e-08, -0.042740025, 0.9990424)
+bones/0/scale = Vector3(1, 0.99999994, 0.99999994)
 
 [node name="Bone_001" parent="NPC/Skeleton Character/Armature/Skeleton3D" index="0" unique_id=1018885442]
 transform = Transform3D(0.9963466, 0.08539818, 0.00080024026, -0.08539819, 0.99617124, 0.01870467, 0.0008001687, -0.018704673, 0.99982464, 0.24749398, 4.2394533, -0.042063892)
