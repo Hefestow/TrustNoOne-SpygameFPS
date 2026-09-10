@@ -87,14 +87,11 @@ func become_hostile() -> void:
 		return
 	state = State.CHASE
 	if talk_area:
+		talk_area.collision_layer = 0
 		talk_area.monitoring = false
-		talk_area.set_deferred("monitorable", false)
-		if talk_area.has_method("set_can_talk"):
-			talk_area.set_can_talk(false)
+		talk_area.monitorable = false
 		if talk_area.has_method("cancel_conversation"):
 			talk_area.cancel_conversation()
-	if player and player.has_method("set_current_interactable"):
-		player.set_current_interactable(null)
 	_play("walk")
 	_blend_look(true)
 

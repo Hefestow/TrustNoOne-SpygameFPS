@@ -243,6 +243,7 @@ func _play_footstep(volume_db: float, noise_level: float) -> void:
 
 func set_current_interactable(interactable: Node) -> void:
 	area_interactable = interactable
+	last_prompt = "__force__"
 	_refresh_interactable()
 
 func _handle_interact_check() -> void:
@@ -267,9 +268,11 @@ func _get_ray_interactable() -> Node:
 	if not interact_ray.is_colliding():
 		return null
 	var collider := interact_ray.get_collider()
-	if collider and collider.has_method("interact"):
-		return collider
-	return null
+	if collider == null or not collider.has_method("interact"):
+		return null
+	if collider.get("can_talk") == false:
+		return null
+	return collider
 
 func _update_prompt() -> void:
 	var prompt := ""

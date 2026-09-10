@@ -103,8 +103,16 @@ func interact(_by: Node) -> void:
 
 func set_can_talk(value: bool) -> void:
 	can_talk = value
-	if not value and is_dialogue_open:
-		cancel_conversation()
+	if not value:
+		if is_dialogue_open:
+			cancel_conversation()
+		collision_layer = 0
+		monitoring = false
+		set_deferred("monitorable", false)
+	else:
+		collision_layer = 8  # Interactables — match your project
+		monitoring = true
+		monitorable = true
 		
 func on_focus(_by: Node) -> void:
 	pass

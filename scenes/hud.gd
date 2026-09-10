@@ -69,6 +69,9 @@ func _on_interactable_focused(prompt_text: String) -> void:
 func _on_interactable_unfocused() -> void:
 	interact_label.visible = false
 
+
+
+	
 func play_exit_sequence(message: String = "The job is done.") -> void:
 	if is_ending:
 		return
