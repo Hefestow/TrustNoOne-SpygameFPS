@@ -27,10 +27,11 @@ signal line_started(kind: String)
 @export var face_anchor_path: NodePath
 @export var dialogue_box_path: NodePath = ^"/root/World/DialogueBox"
 
+@export var can_talk: bool = true
+
 @onready var voice_player: AudioStreamPlayer3D = get_node_or_null(voice_player_path)
 @onready var face_anchor: Node3D = get_node_or_null(face_anchor_path)
 
-var can_talk: bool = true
 var player_in_range: Node = null
 var dialogue_index: int = 0
 var has_completed_dialogue: bool = false
@@ -92,8 +93,11 @@ func _process(delta: float) -> void:
 		type_timer += period_pause
 
 func get_prompt() -> String:
+	print("PROMPT CHECK: ", npc_name, " can_talk = ", can_talk)
+
 	if not can_talk or is_dialogue_open:
 		return ""
+
 	return "Talk to %s [E]" % npc_name
 
 func interact(_by: Node) -> void:
@@ -102,18 +106,23 @@ func interact(_by: Node) -> void:
 	_handle_interact()
 
 func set_can_talk(value: bool) -> void:
+	print("NPC ", npc_name, " set_can_talk: ", value)
 	can_talk = value
+
 	if not value:
-		if is_dialogue_open:
-			cancel_conversation()
+		cancel_conversation()
+
 		collision_layer = 0
 		monitoring = false
 		monitorable = false
+
 		for child in get_children():
 			if child is CollisionShape3D:
 				child.disabled = true
+
 		if player_in_range and player_in_range.has_method("set_current_interactable"):
 			player_in_range.set_current_interactable(null)
+
 		player_in_range = null
 		
 func on_focus(_by: Node) -> void:

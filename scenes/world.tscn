@@ -301,7 +301,7 @@ transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, 7.1054274e-15, 0, 1, 0, 2
 collision_layer = 128
 prompt_text = "Interact"
 consume_on_grab = false
-inspect_line = "Oh, wow! This got a sequel? I haven't tried the first one."
+inspect_line = "This got a sequel already? I haven't even tried the first one."
 
 [node name="CollisionShape3D" parent="Environment/Poster_Man/GrabItem" index="0" unique_id=87095853]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23883045, 0)
@@ -316,7 +316,7 @@ transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 3.292
 collision_layer = 128
 prompt_text = "Interact"
 consume_on_grab = false
-inspect_line = "Oh hey they're still making these!"
+inspect_line = "Oh hey they're still making these."
 
 [node name="CollisionShape3D" parent="Environment/Poster_Eldest/GrabItem" index="0" unique_id=87095853]
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 3.5527137e-15, 0, 1, 0.33917665, -0.23883033, 0)
@@ -325,6 +325,22 @@ debug_color = Color(0.96951896, 0, 0.46395707, 0.41960785)
 
 [node name="Player" parent="." unique_id=1355011314 instance=ExtResource("1_nnsk1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2999995, 11.38859)
+crouch_speed = null
+acceleration = null
+air_control = null
+jump_velocity = null
+mouse_sensitivity = null
+min_pitch = null
+max_pitch = null
+interact_range = null
+step_interval_walk = null
+step_interval_sprint = null
+step_interval_crouch = null
+footstep_pitch_variation = null
+talk_fov = null
+talk_blend_time = null
+look_at_face_height_bias = null
+stop_lerp_speed = null
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1232670701 groups=["hud"]]
 script = ExtResource("2_4wyf3")
@@ -455,22 +471,22 @@ transform = Transform3D(-0.9440437, 0, 0.32982045, 0, 1, 0, -0.32982045, 0, -0.9
 post_dialogue_line = "I'd looove a cup of coffee! "
 voice_sounds = Array[AudioStream]([ExtResource("13_7t5mc"), ExtResource("14_lakw3"), ExtResource("15_pm21f"), ExtResource("16_2lf6f"), ExtResource("17_7iits")])
 
-[node name="Skeleton3D" parent="NPC/Skeleton Character/Armature" parent_id_path=PackedInt32Array(1197784429, 1165778372, 167501914) index="0" unique_id=1605169691]
+[node name="Skeleton3D" parent="NPC/Skeleton Character/Armature" parent_id_path=PackedInt32Array(1197784429, 1165778372, 2097987251) index="0" unique_id=1400486282]
 bones/0/rest = Transform3D(0.9963466, 0.08539822, 0.0008002364, -0.08539823, 0.99617124, 0.018704733, 0.0008001786, -0.018704735, 0.99982464, 0.24749398, 4.2394533, -0.042063892)
 bones/0/rotation = Quaternion(-0.009361302, 1.7925352e-08, -0.042740025, 0.9990424)
 bones/0/scale = Vector3(1, 0.99999994, 0.99999994)
 
-[node name="Bone_001" parent="NPC/Skeleton Character/Armature/Skeleton3D" index="0" unique_id=1018885442]
+[node name="Bone_001" parent="NPC/Skeleton Character/Armature/Skeleton3D" index="0" unique_id=2076656163]
 transform = Transform3D(0.9963466, 0.08539818, 0.00080024026, -0.08539819, 0.99617124, 0.01870467, 0.0008001687, -0.018704673, 0.99982464, 0.24749398, 4.2394533, -0.042063892)
 
-[node name="Skeleton3D" parent="NPC/Skeleton Character/Armature_001" parent_id_path=PackedInt32Array(1197784429, 1165778372, 739187096) index="1" unique_id=1566341011]
+[node name="Skeleton3D" parent="NPC/Skeleton Character/Armature_001" parent_id_path=PackedInt32Array(1197784429, 1165778372, 620941428) index="1" unique_id=1986801337]
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/rotation = Quaternion(-0.454067, -0.3933419, -0.545881, 0.5840542)
 bones/3/rotation = Quaternion(-0.454067, -0.3933419, -0.545881, 0.58405423)
 bones/5/rotation = Quaternion(-0.454067, -0.3933419, -0.545881, 0.58405423)
 bones/7/rotation = Quaternion(-0.45406696, -0.39334193, -0.545881, 0.58405423)
 
-[node name="Bone" parent="NPC/Skeleton Character/Armature_001/Skeleton3D" index="0" unique_id=1636590404]
+[node name="Bone" parent="NPC/Skeleton Character/Armature_001/Skeleton3D" index="0" unique_id=1674460725]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10981023, 1.5513253, -0.06993407)
 
 [node name="NPCTrooper" parent="." unique_id=1741088955 instance=ExtResource("18_lakw3")]

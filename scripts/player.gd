@@ -250,21 +250,28 @@ func _handle_interact_check() -> void:
 	_refresh_interactable()
 
 func _refresh_interactable() -> void:
-	if area_interactable != null and (
-		not is_instance_valid(area_interactable)
-		or area_interactable.get("can_talk") == false
-	):
-		area_interactable = null
+	if area_interactable != null:
+		if not is_instance_valid(area_interactable):
+			area_interactable = null
+		elif area_interactable.has_method("get") and area_interactable.get("can_talk") == false:
+			area_interactable = null
 
 	var next: Node = area_interactable
+
 	if next == null:
 		next = _get_ray_interactable()
 
+	# Extra safety check
+	if next != null and next.has_method("get") and next.get("can_talk") == false:
+		next = null
+
 	if next != current_interactable:
-		if current_interactable and is_instance_valid(current_interactable) and current_interactable.has_method("on_unfocus"):
-			if current_interactable != area_interactable:
+		if current_interactable and is_instance_valid(current_interactable):
+			if current_interactable.has_method("on_unfocus"):
 				current_interactable.on_unfocus(self)
+
 		current_interactable = next
+
 		if current_interactable and current_interactable.has_method("on_focus"):
 			current_interactable.on_focus(self)
 

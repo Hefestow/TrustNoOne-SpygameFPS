@@ -64,6 +64,7 @@ func _ready() -> void:
 	var health := self.get_node_or_null("HealthComponent")
 	if health:
 		health.health_changed.connect(_on_trooper_health)
+		health.damaged.connect(_on_damaged)
 		health.died.connect(_on_died)
 		_on_trooper_health(health.current, health.max_health)
 		
@@ -76,45 +77,31 @@ func _ready() -> void:
 	_flash_mat.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
 	_flash_mat.roughness = 1.0
 	
-	if health:
-		health.health_changed.connect(_on_trooper_health)
-		health.damaged.connect(_on_damaged)
-		health.died.connect(_on_died)
-		_on_trooper_health(health.current, health.max_health)
+
 		
 func become_hostile() -> void:
 	if is_dead:
 		return
+
 	if state == State.CHASE or state == State.ATTACK:
 		return
+
 	state = State.CHASE
-	_disable_talk()
+
+	if talk_area:
+		talk_area.set_can_talk(false)
+
 	_play("walk")
 	_blend_look(true)
+	
+	
 
-func _disable_talk() -> void:
-	if talk_area:
-		if talk_area.has_method("set_can_talk"):
-			talk_area.set_can_talk(false)
-		talk_area.collision_layer = 0
-		talk_area.monitoring = false
-		talk_area.monitorable = false
-		for child in talk_area.get_children():
-			if child is CollisionShape3D:
-				child.disabled = true
-		if talk_area.has_method("cancel_conversation"):
-			talk_area.cancel_conversation()
-	if player == null:
-		_find_player()
-	if player and player.has_method("set_current_interactable"):
-		player.set_current_interactable(null)
 
 func _on_died() -> void:
 	if is_dead:
 		return
 	is_dead = true
 	velocity = Vector3.ZERO
-	_disable_talk()
 	if has_node("Hitbox"):
 		$Hitbox.set_active(false)
 	if has_node("Hurtbox"):
