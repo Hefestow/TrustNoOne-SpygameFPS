@@ -243,74 +243,90 @@ func _play_footstep(volume_db: float, noise_level: float) -> void:
 
 func set_current_interactable(interactable: Node) -> void:
 	area_interactable = interactable
-	last_prompt = "__force__"
 	_refresh_interactable()
+
 
 func _handle_interact_check() -> void:
 	_refresh_interactable()
 
+
 func _refresh_interactable() -> void:
+	# Area interaction has priority.
 	if area_interactable != null:
 		if not is_instance_valid(area_interactable):
-			area_interactable = null
-		elif area_interactable.has_method("get") and area_interactable.get("can_talk") == false:
 			area_interactable = null
 
 	var next: Node = area_interactable
 
+	# If we're not inside an interaction Area,
+	# check what we're looking at.
 	if next == null:
 		next = _get_ray_interactable()
 
-	# Extra safety check
-	if next != null and next.has_method("get") and next.get("can_talk") == false:
-		next = null
-
+	# Stop focusing the previous object.
 	if next != current_interactable:
-		if current_interactable and is_instance_valid(current_interactable):
-			if current_interactable.has_method("on_unfocus"):
-				current_interactable.on_unfocus(self)
+		if current_interactable != null:
+			if is_instance_valid(current_interactable):
+				if current_interactable.has_method("on_unfocus"):
+					current_interactable.on_unfocus(self)
 
 		current_interactable = next
 
-		if current_interactable and current_interactable.has_method("on_focus"):
-			current_interactable.on_focus(self)
+		# Start focusing the new object.
+		if current_interactable != null:
+			if current_interactable.has_method("on_focus"):
+				current_interactable.on_focus(self)
 
 	_update_prompt()
 
 func _get_ray_interactable() -> Node:
 	if not interact_ray.is_colliding():
 		return null
+
 	var collider := interact_ray.get_collider()
-	if collider == null or not is_instance_valid(collider):
+
+	if collider == null:
 		return null
+
+	if not is_instance_valid(collider):
+		return null
+
 	if not collider.has_method("interact"):
 		return null
-	if collider.get("can_talk") == false:
-		return null
+
 	return collider
 
 func _update_prompt() -> void:
 	var prompt := ""
-	if current_interactable and current_interactable.has_method("get_prompt"):
-		prompt = current_interactable.get_prompt()
+
+	if current_interactable != null:
+		if is_instance_valid(current_interactable):
+			if current_interactable.has_method("get_prompt"):
+				prompt = current_interactable.get_prompt()
+
 	if prompt == last_prompt:
 		return
+
 	last_prompt = prompt
-	if prompt == "":
+
+	if prompt.is_empty():
 		interactable_unfocused.emit()
 	else:
 		interactable_focused.emit(prompt)
-
+		
 func _try_interact() -> void:
-	if current_interactable and current_interactable.has_method("interact"):
-		current_interactable.interact(self)
+	if current_interactable == null:
+		return
+
+	if not is_instance_valid(current_interactable):
+		current_interactable = null
 		_update_prompt()
 		return
-	for npc in get_tree().get_nodes_in_group("talking_npc"):
-		if npc.has_method("interact"):
-			npc.interact(self)
-			_update_prompt()
-			return
+
+	if current_interactable.has_method("interact"):
+		current_interactable.interact(self)
+
+	_update_prompt()
 
 func start_conversation(face: Node3D) -> void:
 	conversation_target = face
