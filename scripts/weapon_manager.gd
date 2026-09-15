@@ -45,6 +45,8 @@ func equip(weapon: Weapon) -> void:
 	if gun:
 		gun.visible = weapon == Weapon.GUN
 
+
+	
 func _attack() -> void:
 	if _player_is_busy():
 		return

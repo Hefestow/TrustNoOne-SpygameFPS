@@ -11,6 +11,10 @@ extends Node3D
 
 
 func _ready() -> void:
+	GameState.flags_changed.connect(_sync_door)
+	_sync_door()
+
+
 	spot_light_3d.visible = false
 	omni_light_3d.visible = false
 	var chief := get_tree().get_first_node_in_group("chief")
@@ -27,7 +31,12 @@ func _ready() -> void:
 	omni_light_3d.visible = true
 	spotlight_sound.play()
 	fluorescent_hum_sfx.play()
-
+	
+func _sync_door() -> void:
+	if GameState.door_unlocked:
+		animation_player.play("gate_open")
+		# disable a blocking StaticBody if you have one
+		
 func _on_chief_finished_talking() -> void:
 	if door_sfx:
 		door_sfx.play()

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 DialogueManager="*uid://c3rodes2l3gxb"
+GameState="*uid://bis1vj48q23i2"
 
 [display]
 

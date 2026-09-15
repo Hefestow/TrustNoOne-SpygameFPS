@@ -493,6 +493,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10981023, 1.5513253, -0.069
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8557386, 0.29593349, 5.725404)
 attack_cooldown = 0.1
 
+[node name="NPCTrooper2" parent="." unique_id=1315502572 instance=ExtResource("18_lakw3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8557386, 0.29593349, -4.5199404)
+attack_cooldown = 0.1
+
+[node name="NPCTrooper3" parent="." unique_id=2004545396 instance=ExtResource("18_lakw3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2281685, 0.29593349, -4.5199404)
+attack_cooldown = 0.1
+
+[node name="NPCTrooper4" parent="." unique_id=616389099 instance=ExtResource("18_lakw3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2281685, 0.29593349, -8.213747)
+attack_cooldown = 0.1
+
+[node name="NPCTrooper5" parent="." unique_id=1165388572 instance=ExtResource("18_lakw3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3325281, 0.29593349, -6.065974)
+attack_cooldown = 0.1
+
+[node name="NPCTrooper6" parent="." unique_id=1573995254 instance=ExtResource("18_lakw3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7666502, 0.29593349, -8.506115)
+attack_cooldown = 0.1
+
 [node name="HostileArea" parent="." unique_id=44056495 instance=ExtResource("19_pm21f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2359743, 2.6424866)
 

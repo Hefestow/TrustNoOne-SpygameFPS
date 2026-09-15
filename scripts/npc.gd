@@ -50,6 +50,13 @@ var dialogue_label: Label
 var continue_indicator: Label
 var name_label: Label
 
+
+@export var is_gate: bool = false
+@export var deny_line: String = "Credentials. Now."
+@export var pass_line: String = "Multipass. Fine. Go."
+@export var gun_line: String = "Whoa is that a gun?? Alright alright, you can go in."
+@export var already_line: String = "I already waved you through."
+
 func _ready() -> void:
 	dialogue_box = get_node_or_null(dialogue_box_path)
 	if dialogue_box == null:
@@ -99,9 +106,46 @@ func get_prompt() -> String:
 
 
 func interact(_by: Node) -> void:
+
+	if is_gate:
+		_handle_gate(_by)
+		return
 	_handle_interact()
 
 
+func _player_has_gun_out(by: Node) -> bool:
+	var weapons = by.get("weapons")
+	if weapons == null:
+		return false
+	if weapons.has_method("is_gun_drawn"):
+		return weapons.is_gun_drawn()
+	return false
+
+func _handle_gate(by: Node) -> void:
+	# already mid-line → skip typewriter like normal talk
+	if is_typing:
+		_finish_typing()
+		_start_input_cooldown(skip_cooldown)
+		return
+	if is_dialogue_open:
+		_close_dialogue()
+		return
+
+	if GameState.door_unlocked:
+		_start_line(already_line, "post")
+		return
+
+	if _player_has_gun_out(by):
+		_start_line(gun_line, "post")
+		GameState.unlock_door()
+		return
+
+	if GameState.has_pass:
+		_start_line(pass_line, "post")
+		GameState.unlock_door()
+		return
+
+	_start_line(deny_line, "post")
 		
 func on_focus(_by: Node) -> void:
 	pass

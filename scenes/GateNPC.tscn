@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dchimt057b1v6"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_iavml"]
+inner_radius = 0.368
+outer_radius = 0.858
+rings = 5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
+size = Vector3(0.86376953, 0.5228882, 1.0634766)
+
+[node name="MeshInstance3D" type="MeshInstance3D" unique_id=513726830]
+transform = Transform3D(-2.6226834e-08, 0.6, 0, -0.6, -2.6226834e-08, 0, 0, 0, 0.6, 0, 0.48300225, 0)
+mesh = SubResource("TorusMesh_iavml")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=792891825]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=339064230]
+transform = Transform3D(0.99999976, -7.6738615e-13, 0, 7.6738615e-13, 0.99999976, 0, 0, 0, 0.99999976, 0.068115234, 0.026519744, 0)
+shape = SubResource("BoxShape3D_rfqkq")

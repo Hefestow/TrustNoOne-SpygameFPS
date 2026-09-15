@@ -20,7 +20,7 @@ func _on_area_entered(area: Area3D) -> void:
 	if hit.owner == owner:
 		return
 	_apply(hit.damage, hit.knockback, hit.owner)
-
+	
 func apply_hit(amount: float, knockback: float, from: Node) -> void:
 	_apply(amount, knockback, from)
 

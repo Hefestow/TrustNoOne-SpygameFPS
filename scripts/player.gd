@@ -315,6 +315,13 @@ func _update_prompt() -> void:
 		interactable_focused.emit(prompt)
 		
 func _try_interact() -> void:
+	# Active dialogue gets first priority.
+	for npc in get_tree().get_nodes_in_group("talking_npc"):
+		if is_instance_valid(npc) and npc.has_method("interact"):
+			npc.interact(self)
+			return
+
+	# Normal interaction.
 	if current_interactable == null:
 		return
 

@@ -83,13 +83,13 @@ func _ready() -> void:
 func become_hostile() -> void:
 	if is_dead:
 		return
+	_remove_interaction()
 
 	if state == State.CHASE or state == State.ATTACK:
 		return
 
 	state = State.CHASE
 
-	_remove_interaction()
 
 	_play("walk")
 	_blend_look(true)
