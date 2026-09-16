@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cwnaxnoavpnca"]
+
+[ext_resource type="Script" uid="uid://bdwxk2pn8prnm" path="res://scenes/hud.gd" id="1_ahhtf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e3hyu"]
+font_size = 15
+outline_size = 8
+outline_color = Color(0, 0, 0, 0.57254905)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q5onr"]
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="CanvasLayer" unique_id=1032526359 groups=["hud"]]
+script = ExtResource("1_ahhtf")
+
+[node name="InteractPrompt" type="Label" parent="." unique_id=1532720321]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -128.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 25
+text = "[E]"
+label_settings = SubResource("LabelSettings_e3hyu")
+horizontal_alignment = 1
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=2003191300]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndMessage" type="Label" parent="." unique_id=308701727]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.0
+offset_top = -64.0
+offset_right = 272.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="PlayerBark" type="Label" parent="." unique_id=1581229371]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -78.0
+offset_right = 200.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "aasdasdasd"
+label_settings = SubResource("LabelSettings_q5onr")
+
+[node name="HealthLabel" type="Label" parent="." unique_id=2142167593]
+offset_right = 78.0
+offset_bottom = 46.0
+
+[node name="HurtFlash" type="ColorRect" parent="." unique_id=510308762]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0.476)

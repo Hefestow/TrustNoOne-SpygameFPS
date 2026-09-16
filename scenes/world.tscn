@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dolivp3lsc40t" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://dbfsld57jdmmj" path="res://scripts/world.gd" id="1_qfnet"]
-[ext_resource type="Script" uid="uid://bdwxk2pn8prnm" path="res://scenes/hud.gd" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://bgdswhbhyhe4t" path="res://assets/art/chair.glb" id="2_e3hyu"]
 [ext_resource type="Texture2D" uid="uid://c4o4dbq8i8hdm" path="res://assets/art/Poster_Fragrance_poster_fragrance_pixel.png" id="4_2lf6f"]
 [ext_resource type="AudioStream" uid="uid://cmdhurjrd2510" path="res://sounds/spotlight SFX.mp3" id="5_i7141"]
@@ -12,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c3pbjgq3eojox" path="res://scenes/poster_fragrance.tscn" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://dimglv8ql7uvc" path="res://scenes/grab_item.tscn" id="8_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://c3jihvp40i3vc" path="res://scenes/tno_chief_3.tscn" id="9_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://cwnaxnoavpnca" path="res://scenes/hud.tscn" id="9_oo54l"]
 [ext_resource type="AudioStream" uid="uid://1x5hbt73v8uq" path="res://sounds/dragon-studio-door-slamming-shut-478363.mp3" id="9_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://qk8g21o5yt5p" path="res://scenes/npc.tscn" id="10_w7kh3"]
 [ext_resource type="AudioStream" uid="uid://dcors7nyanbxj" path="res://sounds/skeleton_chatter1.wav" id="13_7t5mc"]
@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://doao1fjolr402" path="res://sounds/skeleton_chatter5.wav" id="17_7iits"]
 [ext_resource type="PackedScene" uid="uid://bexx58b1hswaq" path="res://scenes/hostile_trooper_character.tscn" id="18_lakw3"]
 [ext_resource type="PackedScene" uid="uid://cqlv8c7l84lnm" path="res://scenes/hostile_area.tscn" id="19_pm21f"]
+[ext_resource type="PackedScene" uid="uid://dchimt057b1v6" path="res://scenes/GateNPC.tscn" id="22_oo54l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4wyf3"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -77,6 +78,23 @@ tracks/1/keys = {
 "values": [Vector3(1.3984697, 0.37710762, 1.1508658)]
 }
 
+[sub_resource type="Animation" id="Animation_7iits"]
+resource_name = "gate_open"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"prinnt(\"I AM BALLS)"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_4mrxx"]
 resource_name = "slide_door"
 length = 2.0
@@ -108,6 +126,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7r4gi"]
 _data = {
 &"RESET": SubResource("Animation_i7141"),
+&"gate_open": SubResource("Animation_7iits"),
 &"slide_door": SubResource("Animation_4mrxx")
 }
 
@@ -199,16 +218,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kpybi")
-
-[sub_resource type="LabelSettings" id="LabelSettings_e3hyu"]
-font_size = 15
-outline_size = 8
-outline_color = Color(0, 0, 0, 0.57254905)
-
-[sub_resource type="LabelSettings" id="LabelSettings_q5onr"]
-font_size = 20
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
 size = Vector3(3.9238281, 3.949463, 1)
@@ -342,75 +351,7 @@ talk_blend_time = null
 look_at_face_height_bias = null
 stop_lerp_speed = null
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1232670701 groups=["hud"]]
-script = ExtResource("2_4wyf3")
-
-[node name="InteractPrompt" type="Label" parent="HUD" unique_id=763998304]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -66.0
-offset_top = -128.0
-offset_right = 66.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 25
-text = "[E]"
-label_settings = SubResource("LabelSettings_e3hyu")
-horizontal_alignment = 1
-
-[node name="FadeRect" type="ColorRect" parent="HUD" unique_id=1149064859]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(0, 0, 0, 1)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EndMessage" type="Label" parent="HUD" unique_id=1731214970]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -272.0
-offset_top = -64.0
-offset_right = 272.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 20
-
-[node name="PlayerBark" type="Label" parent="HUD" unique_id=811728517]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -184.0
-offset_top = -78.0
-offset_right = 200.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "aasdasdasd"
-label_settings = SubResource("LabelSettings_q5onr")
-
-[node name="HealthLabel" type="Label" parent="HUD" unique_id=1369835212]
-offset_right = 78.0
-offset_bottom = 46.0
-
-[node name="HurtFlash" type="ColorRect" parent="HUD" unique_id=1226542140]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 0, 0, 0.476)
+[node name="HUD" parent="." unique_id=1032526359 instance=ExtResource("9_oo54l")]
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=457281634]
 transform = Transform3D(1, 0, 0, 0, -0.052614745, 0.9986149, 0, -0.9986149, -0.052614745, 0, 9.017779, 0)
@@ -473,18 +414,18 @@ voice_sounds = Array[AudioStream]([ExtResource("13_7t5mc"), ExtResource("14_lakw
 
 [node name="Skeleton3D" parent="NPC/Skeleton Character/Armature" parent_id_path=PackedInt32Array(1197784429, 1165778372, 2097987251) index="0" unique_id=1400486282]
 bones/0/rest = Transform3D(0.9963466, 0.08539822, 0.0008002364, -0.08539823, 0.99617124, 0.018704733, 0.0008001786, -0.018704735, 0.99982464, 0.24749398, 4.2394533, -0.042063892)
-bones/0/rotation = Quaternion(-0.009361302, 1.7925352e-08, -0.042740025, 0.9990424)
+bones/0/rotation = Quaternion(-0.012721795, -0.000394932, -0.100234985, 0.9948824)
 bones/0/scale = Vector3(1, 0.99999994, 0.99999994)
 
 [node name="Bone_001" parent="NPC/Skeleton Character/Armature/Skeleton3D" index="0" unique_id=2076656163]
-transform = Transform3D(0.9963466, 0.08539818, 0.00080024026, -0.08539819, 0.99617124, 0.01870467, 0.0008001687, -0.018704673, 0.99982464, 0.24749398, 4.2394533, -0.042063892)
+transform = Transform3D(0.9799056, 0.19945407, 0.0017645158, -0.199434, 0.97958213, 0.02539255, 0.0033361595, -0.025234206, 0.9996759, 0.24749398, 4.2394533, -0.042063892)
 
 [node name="Skeleton3D" parent="NPC/Skeleton Character/Armature_001" parent_id_path=PackedInt32Array(1197784429, 1165778372, 620941428) index="1" unique_id=1986801337]
 bones/0/scale = Vector3(1, 1, 1)
-bones/1/rotation = Quaternion(-0.454067, -0.3933419, -0.545881, 0.5840542)
-bones/3/rotation = Quaternion(-0.454067, -0.3933419, -0.545881, 0.58405423)
-bones/5/rotation = Quaternion(-0.454067, -0.3933419, -0.545881, 0.58405423)
-bones/7/rotation = Quaternion(-0.45406696, -0.39334193, -0.545881, 0.58405423)
+bones/1/rotation = Quaternion(-0.4540671, -0.39334175, -0.54588073, 0.58405447)
+bones/3/rotation = Quaternion(-0.4540669, -0.39334193, -0.5458809, 0.5840543)
+bones/5/rotation = Quaternion(-0.4540669, -0.39334193, -0.5458809, 0.5840543)
+bones/7/rotation = Quaternion(-0.4540671, -0.39334187, -0.545881, 0.5840542)
 
 [node name="Bone" parent="NPC/Skeleton Character/Armature_001/Skeleton3D" index="0" unique_id=1674460725]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10981023, 1.5513253, -0.06993407)
@@ -519,7 +460,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2359743, 2.6424866)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HostileArea" unique_id=1660731563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0140686035, 0, 0.91503906)
 shape = SubResource("BoxShape3D_iavml")
+disabled = true
 debug_color = Color(0.96101993, 1.1551381e-06, 0.51547384, 0.41960785)
+
+[node name="Node3D" parent="." unique_id=1065635813 instance=ExtResource("22_oo54l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1621523, 0.8455095, 0)
 
 [connection signal="body_entered" from="Exit door" to="." method="_on_exit_door_body_entered"]
 

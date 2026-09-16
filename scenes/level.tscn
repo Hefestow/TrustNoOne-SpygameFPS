@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://byxjedinwds7m"]
+[gd_scene format=4 uid="uid://byxjedinwds7m"]
 
 [ext_resource type="PackedScene" uid="uid://dolivp3lsc40t" path="res://scenes/player.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://c3pbjgq3eojox" path="res://scenes/poster_fragrance.tscn" id="2_w7c3h"]
@@ -7,6 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://do6gc8hlcp5nl" path="res://assets/art/Pipe.glb" id="5_2r41h"]
 [ext_resource type="PackedScene" uid="uid://bexx58b1hswaq" path="res://scenes/hostile_trooper_character.tscn" id="7_b121j"]
 [ext_resource type="PackedScene" uid="uid://cqlv8c7l84lnm" path="res://scenes/hostile_area.tscn" id="7_klq6b"]
+[ext_resource type="PackedScene" uid="uid://dchimt057b1v6" path="res://scenes/GateNPC.tscn" id="8_8c41q"]
+[ext_resource type="PackedScene" uid="uid://dwutw6c4bpx77" path="res://scenes/dialogue_box.tscn" id="9_olg7q"]
+[ext_resource type="PackedScene" uid="uid://cwnaxnoavpnca" path="res://scenes/hud.tscn" id="10_olg7q"]
+[ext_resource type="Texture2D" uid="uid://c4o4dbq8i8hdm" path="res://assets/art/Poster_Fragrance_poster_fragrance_pixel.png" id="11_8iemx"]
+[ext_resource type="PackedScene" uid="uid://dimglv8ql7uvc" path="res://scenes/grab_item.tscn" id="11_t1rx8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7c3h"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -73,6 +78,60 @@ size = Vector3(50, 1.63, 18.22)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
 size = Vector3(23.64502, 9.95166, 32.74707)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64w2a"]
+albedo_color = Color(8.48317, 0.93972015, 0.93972015, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rfqkq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t1rx8"]
+radius = 0.6654102
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7iits"]
+resource_name = "poster"
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("11_8iemx")
+metallic = 1.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("11_8iemx")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8iemx"]
+_surfaces = [{
+"aabb": AABB(-0.87, -0.87, -0.87, 1.2447488, 1.74, 0.08074403),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAQAEAAIABQAAAAIABQACAAQAAQAGAAQAAwAGAAEABwAFAAQAAAAIAAMAAAAFAAgAAwAIAAYABQAHAAkABQAJAAgABwAEAAoABgAKAAQACQAHAAoACwAGAAgACwAIAAkABgALAAoACQAKAAsA"),
+"name": "poster",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("AAAAAAAAAAD/////AAAAAAAA//8AAAAA//8AAAAAAAAAAP//PzQAAAAAAAA/NAAA/////z80AAA3DXQJ//8AAP//AAA/NAAAx/J0Cf//AAA3DYr2//8AAMfyivb//wAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_64w2a"]
+resource_name = "Poster_Fragrance_Cube"
+_surfaces = [{
+"aabb": AABB(-0.87, -0.87, -0.87, 1.2447488, 1.74, 0.08074403),
+"attribute_data": PackedByteArray("bYDihnOGUo9tgFKPc4bihiH8eo3//4fyIfyn7v//momrhcS0e4CPjauFUZR7gIW77oWI4dx/ps/uhUrM3H8s3r+ANKK9heiwv4Crs72F96QK/Gmw2/uFogr8haLb+2mwsP81nqz7abCw/6CxrPv+nL/6//+GhzuBv/o7gYaH//8K/IWi2/uhlAr8oZTb+4WitIPz5+SCCJK0gwiS5ILz5w=="),
+"format": 34896613399,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUA"),
+"material": SubResource("StandardMaterial3D_7iits"),
+"name": "poster",
+"primitive": 3,
+"uv_scale": Vector4(1.9856281, 1.9809188, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("AAAAAAAA////////AAD//wAA//8AAP////8AAAAA//83DXQJ/////wAA//8/NP//Nw2K9v////8AAAAAPzT//8fyivb//5PW//8AAD80ItPH8nQJ//+N0f////8/NOvVAAAAAD80AKbH8nQJ//896P//AAA/NG/pNw10Cf//aaT/////PzQApjcNivb//z3oAAD//z80b+nH8or2//9ppAAAAAAAAFTV//8AAD80VNX//wAAAABU1QAAAAA/NFTVAAAAAD80Gy4AAP//AAAbLgAA//8/NBsuAAAAAAAAGy7H8nQJ//8AgDcNivb//wCAx/KK9v//AIA3DXQJ//8AgP////8AAFTVAAD//z80VNUAAP//AABU1f////8/NFTV//8AAAAA/7//////PzT/v/////8AAP+///8AAD80/7////9/////f////3////9/glr/f4Ja/3+CWv9/glr/f6oTuh81n45q9p63aQAUoR+3PDZuzHTJXVl1oF1GN85vR8PIkTKLNaKlil6iuMgwkFRVVFVUVVRVVFVUVVRVVFWHVw6vh1cOr4dXDq+HVw6v/3////9/////f////3///1TVqipU1aoqVNWqKlTVqir/fwAA/38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_8iemx")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fpun6"]
+size = Vector3(1.4276123, 2.031128, 1)
 
 [node name="Level" type="Node3D" unique_id=59371898]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -157,7 +216,7 @@ use_collision = true
 mesh = SubResource("BoxMesh_2q6dc")
 
 [node name="CSGMesh3D12" type="CSGMesh3D" parent="." unique_id=2098415235]
-transform = Transform3D(-2.4696934e-08, 0, 0.565, 0, 0.6810839, 0, -0.565, 0, -2.4696934e-08, -40.706177, 3.7004223, -7.0493393)
+transform = Transform3D(-1.2326612e-08, 0, 0.695, 0, 0.306, 0, -0.282, 0, -3.0379415e-08, -41.095634, 1.8250027, -5.5749493)
 use_collision = true
 mesh = SubResource("BoxMesh_w7c3h")
 
@@ -167,7 +226,7 @@ use_collision = true
 mesh = SubResource("BoxMesh_w8frs")
 
 [node name="CSGMesh3D11" type="CSGMesh3D" parent="CSGMesh3D9" unique_id=1543716996]
-transform = Transform3D(1, 0, 1.0658141e-14, 0, 0.9999999, 0, -1.0658141e-14, 0, 1, 0, -2.9364996, -0.010971069)
+transform = Transform3D(1, 0, 1.4210855e-14, 0, 0.9999999, 0, -1.4210855e-14, 0, 1, 0, -3.1533952, -0.010971069)
 operation = 2
 use_collision = true
 mesh = SubResource("BoxMesh_lkujl")
@@ -214,7 +273,7 @@ light_specular = 0.142
 omni_range = 152.392
 
 [node name="Player" parent="." unique_id=1355011314 instance=ExtResource("1_2q6dc")]
-transform = Transform3D(-0.6618513, 0, 0.74963516, 0, 1, 0, -0.74963516, 0, -0.6618513, -25.110971, 0.5794624, -23.643618)
+transform = Transform3D(-0.6618513, 0, 0.74963516, 0, 1, 0, -0.74963516, 0, -0.6618513, -25.110971, 0.5794624, -6.3501244)
 
 [node name="Poster_Fragrance" parent="." unique_id=716292400 instance=ExtResource("2_w7c3h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.062935, 0.34511447, -8.755575)
@@ -252,3 +311,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.354523, 0.2950027, -38.51
 
 [node name="NPCTrooper" parent="." unique_id=1741088955 instance=ExtResource("7_b121j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.883995, 0.29835963, 0)
+
+[node name="Node3D" parent="." unique_id=1065635813 instance=ExtResource("8_8c41q")]
+transform = Transform3D(1, 0, 0, 0, 0.99986553, -0.016397467, 0, 0.016397467, 0.99986553, -40.57609, 0.9863614, -5.3864174)
+
+[node name="DialogueBox" parent="." unique_id=2134873827 instance=ExtResource("9_olg7q")]
+
+[node name="HUD" parent="." unique_id=1032526359 instance=ExtResource("10_olg7q")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1897157579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.385365, 0.79500246, -14.157841)
+material_override = SubResource("StandardMaterial3D_64w2a")
+mesh = SubResource("SphereMesh_rfqkq")
+
+[node name="GrabItem" parent="MeshInstance3D" unique_id=2000680091 instance=ExtResource("11_t1rx8")]
+item_name = "Multipass?"
+inspect_line = ""
+gives_pass = true
+
+[node name="CollisionShape3D" parent="MeshInstance3D/GrabItem" index="0" unique_id=87095853]
+shape = SubResource("SphereShape3D_t1rx8")
+
+[node name="Poster_Fragrance2" parent="." unique_id=646279254 instance=ExtResource("2_w7c3h")]
+transform = Transform3D(-4.990383e-08, 0, 1.1416665, 0, 1.1416665, 0, -1.1416665, 0, -4.990383e-08, -26.314169, -0.9201871, 4.5027523)
+
+[node name="Cube" parent="Poster_Fragrance2" index="0" unique_id=751254582]
+mesh = SubResource("ArrayMesh_64w2a")
+
+[node name="GrabItem" parent="Poster_Fragrance2" unique_id=218673182 instance=ExtResource("11_t1rx8")]
+transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, 7.1054274e-15, 0, 1, 0, 2.0448868, 0.10903406)
+prompt_text = "Interact"
+consume_on_grab = false
+
+[node name="CollisionShape3D" parent="Poster_Fragrance2/GrabItem" index="0" unique_id=87095853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23883045, 0)
+shape = SubResource("BoxShape3D_fpun6")
+debug_color = Color(0.96951896, 0, 0.46395707, 0.41960785)
+
+[editable path="HUD"]
+[editable path="MeshInstance3D/GrabItem"]
+[editable path="Poster_Fragrance2"]
+[editable path="Poster_Fragrance2/GrabItem"]

@@ -30,7 +30,7 @@ signal line_started(kind: String)
 
 @onready var voice_player: AudioStreamPlayer3D = get_node_or_null(voice_player_path)
 @onready var face_anchor: Node3D = get_node_or_null(face_anchor_path)
-
+@export var gives_pass_on_finish: bool = false
 var player_in_range: Node = null
 var dialogue_index: int = 0
 var has_completed_dialogue: bool = false
@@ -49,7 +49,7 @@ var dialogue_box: Control
 var dialogue_label: Label
 var continue_indicator: Label
 var name_label: Label
-
+var can_talk := true
 
 @export var is_gate: bool = false
 @export var deny_line: String = "Credentials. Now."
@@ -106,7 +106,8 @@ func get_prompt() -> String:
 
 
 func interact(_by: Node) -> void:
-
+	if "can_talk" in self and not can_talk:
+		return
 	if is_gate:
 		_handle_gate(_by)
 		return
@@ -189,9 +190,12 @@ func _handle_interact() -> void:
 				dialogue_index = 0
 				_close_dialogue()
 				conversation_finished.emit()
+				if gives_pass_on_finish:
+					GameState.give_pass()
 		else:
 			_start_line(dialogue_lines[dialogue_index], "main")
 		return
+	
 	_close_dialogue()
 
 func _start_line(text: String, kind: String) -> void:

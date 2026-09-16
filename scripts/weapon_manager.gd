@@ -29,8 +29,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("attack"):
 		_attack()
 	if event.is_action_pressed("reload"):
-		if current == Weapon.GUN and gun and gun.has_method("reload"):
-			gun.reload()
+		match current:
+			Weapon.GUN:
+				if gun and gun.has_method("reload"):
+					gun.reload()
+			Weapon.PIPE:
+				if pipe and pipe.has_method("reload"):
+					pipe.reload()
 			
 func grant_weapons() -> void:
 	unlocked = true
@@ -73,3 +78,6 @@ func _hide_all() -> void:
 		pipe.visible = false
 	if gun:
 		gun.visible = false
+
+func is_gun_drawn() -> bool:
+	return unlocked and current == Weapon.GUN and gun != null and gun.visible

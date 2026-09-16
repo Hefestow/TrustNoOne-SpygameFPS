@@ -60,6 +60,69 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PipeSFX:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fulsm"]
+resource_name = "reload"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwingPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3333333, 0.52203214, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.1713358, 0, 0), Vector3(-4.8485246, 0, 0), Vector3(-6.2831855, 0, 0), Vector3(-4.8485246, 0, 0), Vector3(1.1713358, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwingPivot:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24402022, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.43957865, -0.67045975, -0.3685052), Vector3(0.245, -0.67, -0.369), Vector3(0.43957865, -0.67045975, -0.3685052)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwingPivot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.46666667, 0.56666666, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.135, 1.135, 1.135), Vector3(1.098, 6.178, 1.098), Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PipeSFX:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_jej6c"]
 resource_name = "swing"
@@ -121,6 +184,7 @@ tracks/3/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
 _data = {
 &"RESET": SubResource("Animation_3v2ag"),
+&"reload": SubResource("Animation_fulsm"),
 &"swing": SubResource("Animation_jej6c")
 }
 
@@ -354,7 +418,6 @@ collision_mask = 128
 
 [node name="WeaponHolder" type="Node3D" parent="Head/Camera3D" unique_id=63873241]
 script = ExtResource("7_fjrip")
-start_unlocked = null
 
 [node name="Pipe" type="Node3D" parent="Head/Camera3D/WeaponHolder" unique_id=771841593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15317893, 0, -0.15502739)
@@ -379,8 +442,15 @@ shape = SubResource("BoxShape3D_iavml")
 [node name="PipeAnimation" type="AnimationPlayer" parent="Head/Camera3D/WeaponHolder/Pipe" unique_id=46552506]
 libraries/ = SubResource("AnimationLibrary_f1ej7")
 
+[node name="PipeSFX" type="AudioStreamPlayer3D" parent="Head/Camera3D/WeaponHolder/Pipe" unique_id=1050114975]
+stream = ExtResource("13_f1ej7")
+volume_db = -20.916
+max_db = 2.45
+pitch_scale = 1.44
+
 [node name="Gun" type="Node3D" parent="Head/Camera3D/WeaponHolder" unique_id=2129951646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39758623, -0.29936296, -0.61945796)
+visible = false
 script = ExtResource("9_ur7pv")
 bullet_scene = ExtResource("10_y4r1p")
 ammo = 222

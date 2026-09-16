@@ -12,6 +12,7 @@ class_name PipeWeapon
 var can_attack: bool = true
 var swinging: bool = false
 var already_hit: Array[Node] = []
+var is_reloading: bool = false
 
 func _ready() -> void:
 	if hitbox:
@@ -22,7 +23,7 @@ func _ready() -> void:
 		anim.animation_finished.connect(_on_anim_finished)
 
 func attack() -> void:
-	if not can_attack or not visible:
+	if not can_attack or not visible or is_reloading:
 		return
 	if anim == null or not anim.has_animation("swing"):
 		push_warning("Pipe needs an AnimationPlayer with a 'swing' animation")
@@ -39,7 +40,24 @@ func _process(_delta: float) -> void:
 	var t := anim.current_animation_position
 	hitbox.monitoring = t >= hit_start and t <= hit_end
 
+
+func reload() -> void:
+	if not visible or is_reloading or swinging:
+		return
+	if anim == null or not anim.has_animation("reload"):
+		push_warning("Pipe needs a 'reload' animation")
+		return
+	is_reloading = true
+	can_attack = false
+	if hitbox:
+		hitbox.monitoring = false
+	anim.play("reload")
+	
 func _on_anim_finished(anim_name: StringName) -> void:
+	if anim_name == &"reload":
+		is_reloading = false
+		can_attack = true
+		return
 	if anim_name != &"swing":
 		return
 	swinging = false

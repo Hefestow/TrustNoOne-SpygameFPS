@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dchimt057b1v6"]
 
+[ext_resource type="PackedScene" uid="uid://hioimpybwioh" path="res://scenes/interaction_area.tscn" id="1_46b18"]
+
 [sub_resource type="TorusMesh" id="TorusMesh_iavml"]
 inner_radius = 0.368
 outer_radius = 0.858
@@ -8,12 +10,47 @@ rings = 5
 [sub_resource type="BoxShape3D" id="BoxShape3D_rfqkq"]
 size = Vector3(0.86376953, 0.5228882, 1.0634766)
 
-[node name="MeshInstance3D" type="MeshInstance3D" unique_id=513726830]
+[sub_resource type="BoxShape3D" id="BoxShape3D_iavml"]
+size = Vector3(1, 0.85791016, 1)
+
+[node name="GateNPC" type="Node3D" unique_id=1065635813]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=513726830]
 transform = Transform3D(-2.6226834e-08, 0.6, 0, -0.6, -2.6226834e-08, 0, 0, 0, 0.6, 0, 0.48300225, 0)
 mesh = SubResource("TorusMesh_iavml")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=792891825]
+transform = Transform3D(-2.6226834e-08, 0.6, 0, -0.6, -2.6226834e-08, 0, 0, 0, 0.6, 0, 0.48300225, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=339064230]
 transform = Transform3D(0.99999976, -7.6738615e-13, 0, 7.6738615e-13, 0.99999976, 0, 0, 0, 0.99999976, 0.068115234, 0.026519744, 0)
 shape = SubResource("BoxShape3D_rfqkq")
+
+[node name="InteractionArea" parent="." unique_id=1140599872 instance=ExtResource("1_46b18")]
+transform = Transform3D(-2.6226834e-08, 0.6, 0, -0.6, -2.6226834e-08, 0, 0, 0, 0.6, 0, 0.48300225, 0)
+npc_name = "Gatekeeper"
+beckon_line = null
+beckon_delay = null
+beckon_lifetime = null
+lock_player = null
+play_beckon = null
+chars_per_second = null
+comma_pause = null
+period_pause = null
+skip_cooldown = null
+last_line_hold = null
+fade_duration = null
+reopen_cooldown = null
+loop_dialogue = null
+voice_sounds = null
+dialogue_box_path = null
+gives_pass_on_finish = null
+is_gate = true
+deny_line = "Heya, where's your pass, bud? Cant go in without one."
+pass_line = "Multipass! Welcome, welcome."
+gun_line = "Whoa is that a gun?? Alright alright, you can go in, jeeze."
+already_line = "I like being alive! "
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=794263993]
+transform = Transform3D(0.99999976, -6.750156e-14, 0, 6.750156e-14, 0.99999976, 0, 0, 0, 0.99999976, 0, 0.11919061, 0)
+shape = SubResource("BoxShape3D_iavml")
