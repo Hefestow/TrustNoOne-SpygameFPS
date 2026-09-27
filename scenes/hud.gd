@@ -71,22 +71,21 @@ func _on_interactable_unfocused() -> void:
 
 
 
-	
-func play_exit_sequence(message: String = "The job is done.") -> void:
-	if is_ending:
-		return
-	is_ending = true
-	interact_label.visible = false
-	if player_bark:
-		player_bark.visible = false
-
-	if end_message:
-		end_message.text = message
-		end_message.visible = false
-
-	var tween := create_tween()
-	tween.tween_property(fade_rect, "modulate:a", 1.0, 1.5)
-	tween.tween_callback(_show_end_message)
+#func play_exit_sequence(message: String = "The job is done.") -> void:
+	#if is_ending:
+		#return
+	#is_ending = true
+	#interact_label.visible = false
+	#if player_bark:
+		#player_bark.visible = false
+#
+	#if end_message:
+		#end_message.text = message
+		#end_message.visible = false
+#
+	#var tween := create_tween()
+	#tween.tween_property(fade_rect, "modulate:a", 1.0, 1.5)
+	#tween.tween_callback(_show_end_message)
 
 func _show_end_message() -> void:
 	if end_message:
@@ -126,3 +125,20 @@ func _on_player_hurt(_amount: float, _from: Node) -> void:
 	hurt_flash.color.a = hurt_flash_alpha
 	hurt_tween = create_tween()
 	hurt_tween.tween_property(hurt_flash, "color:a", 0.0, hurt_flash_time)
+
+func fade_to_scene(scene: PackedScene, duration: float = 1.0) -> void:
+	if fade_rect == null:
+		if scene:
+			get_tree().change_scene_to_packed(scene)
+		return
+	interact_label.visible = false
+	if player_bark:
+		player_bark.visible = false
+	var tw := create_tween()
+	tw.tween_property(fade_rect, "modulate:a", 1.0, duration)
+	tw.tween_callback(func():
+		if scene:
+			get_tree().change_scene_to_packed(scene)
+		else:
+			get_tree().change_scene_to_file("res://scenes/level.tscn")
+)

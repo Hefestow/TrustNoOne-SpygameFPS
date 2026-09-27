@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dolivp3lsc40t" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://dbfsld57jdmmj" path="res://scripts/world.gd" id="1_qfnet"]
 [ext_resource type="PackedScene" uid="uid://bgdswhbhyhe4t" path="res://assets/art/chair.glb" id="2_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://byxjedinwds7m" path="res://scenes/level.tscn" id="2_kpybi"]
 [ext_resource type="Texture2D" uid="uid://c4o4dbq8i8hdm" path="res://assets/art/Poster_Fragrance_poster_fragrance_pixel.png" id="4_2lf6f"]
 [ext_resource type="AudioStream" uid="uid://cmdhurjrd2510" path="res://sounds/spotlight SFX.mp3" id="5_i7141"]
 [ext_resource type="PackedScene" uid="uid://62cjq2o1h7gp" path="res://assets/art/Poster_Eldest.glb" id="5_q5onr"]
@@ -227,6 +228,7 @@ size = Vector3(2.6239624, 1, 2.8300781)
 
 [node name="world" type="Node3D" unique_id=65632355]
 script = ExtResource("1_qfnet")
+next_level = ExtResource("2_kpybi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1416567079]
 environment = SubResource("Environment_71j4m")
@@ -290,7 +292,6 @@ mesh = SubResource("ArrayMesh_oo54l")
 
 [node name="GrabItem" parent="Environment/Poster_Fragrance" unique_id=218673182 instance=ExtResource("8_w7kh3")]
 transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, 7.1054274e-15, 0, 1, 0, 2.0448868, 0.10903406)
-collision_layer = 128
 prompt_text = "Interact"
 consume_on_grab = false
 
@@ -307,7 +308,6 @@ mesh = SubResource("ArrayMesh_ctatt")
 
 [node name="GrabItem" parent="Environment/Poster_Man" unique_id=441887478 instance=ExtResource("8_w7kh3")]
 transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, 7.1054274e-15, 0, 1, 0, 2.0448868, 0.10903406)
-collision_layer = 128
 prompt_text = "Interact"
 consume_on_grab = false
 inspect_line = "This got a sequel already? I haven't even tried the first one."
@@ -322,7 +322,6 @@ transform = Transform3D(-4.3711363e-08, 0, 0.99999976, 0, 0.99999976, 0, -0.9999
 
 [node name="GrabItem" parent="Environment/Poster_Eldest" unique_id=64039212 instance=ExtResource("8_w7kh3")]
 transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 3.2921886, 3.0972223, 3.2780175)
-collision_layer = 128
 prompt_text = "Interact"
 consume_on_grab = false
 inspect_line = "Oh hey they're still making these."
@@ -373,7 +372,7 @@ volume_db = -5.811
 
 [node name="FluorescentHumSFX" type="AudioStreamPlayer3D" parent="SpotLight3D" unique_id=1310566076]
 stream = ExtResource("6_4mrxx")
-volume_db = -12.975
+volume_db = -19.894
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=378044970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9617224, 0)
@@ -387,7 +386,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.4065528, 0.23499563, 
 
 [node name="PLACEHOLDERLIGHT" type="OmniLight3D" parent="." unique_id=583740828]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.40482, 0)
-light_energy = 8.249
+light_energy = 1.366
 omni_range = 40.822605
 
 [node name="DoorSFX" type="AudioStreamPlayer3D" parent="." unique_id=2126640708]
@@ -398,6 +397,7 @@ pitch_scale = 1.88
 
 [node name="Exit door" type="Area3D" parent="." unique_id=97355290]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10165876, 2.275341, -14.523593)
+collision_mask = 0
 monitoring = false
 monitorable = false
 

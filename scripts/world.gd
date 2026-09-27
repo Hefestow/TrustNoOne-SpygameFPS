@@ -7,8 +7,10 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $Environment/AnimationPlayer
 @onready var door_sfx: AudioStreamPlayer3D = $DoorSFX
 @onready var exit_door: Area3D = $"Exit door"
+@export var next_level: PackedScene
 
 
+var _changing_level: bool = false
 
 func _ready() -> void:
 	GameState.flags_changed.connect(_sync_door)
@@ -46,12 +48,19 @@ func _on_chief_finished_talking() -> void:
 	
 
 func _on_exit_door_body_entered(body: Node3D) -> void:
+	if _changing_level:
+		return
 	if not body.is_in_group("player"):
 		return
+	_changing_level = true
+	_go_to_level()
 
+func _go_to_level() -> void:
 	var hud := get_tree().get_first_node_in_group("hud")
-	if hud and hud.has_method("play_exit_sequence"):
-		hud.play_exit_sequence("That is all folks! Or is it? 
-\n Never trust anyone, hehe.")
+	if hud and hud.has_method("fade_to_scene"):
+		hud.fade_to_scene(next_level)
+		return
+	if next_level:
+		get_tree().change_scene_to_packed(next_level)
 	else:
-		push_warning("HUD not found for exit sequence.")
+		get_tree().change_scene_to_file("res://scenes/level.tscn")
